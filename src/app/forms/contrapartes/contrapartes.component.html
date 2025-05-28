@@ -1,0 +1,162 @@
+
+<div class="tab-pane fade show active" id="contrapartes" role="tabpanel" aria-labelledby="contrapartes-tab">
+    <div class="card mb-5">
+        <div class="card-header" style="background-color: lightgray;">
+            Registrar Coordinador
+        </div>
+        <div class="card-body p-4">
+            <form id="formCoordinadores">
+                <div class="row g-3 mb-4">
+                    <div class="col-md-12">
+                        <label class="form-label small" for="institucion">Institución:</label>
+                        <select class="form-select form-select-sm" id="institucion">
+                          <option selected="">Seleccionar</option>
+                          <option *ngFor="let inst of institucion.getInstitucion()" [value]="inst.id">{{inst.nombre}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <label for="pais" class="form-label small">País:</label>
+                      <input class="form-control form-control-sm" id="pais" type="text"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small" for="cargoCoordinador">Cargo:</label>
+                        <input class="form-control form-control-sm" id="cargoCoordinador" type="text"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small" for="telefonoCoordinador">Teléfono:</label>
+                        <input class="form-control form-control-sm" id="telefonoCoordinador" type="tel"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small" for="correoCoordinador">Correo:</label>
+                        <input class="form-control form-control-sm" id="correoCoordinador" type="email"/>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label small" for="domicilioCoordinador">Domicilio</label>
+                        <input class="form-control form-control-sm" id="domicilioCoordinador" type="text"/>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label small" for="tipoCoordinador">Tipo Coordinador:</label>
+                      <select class="form-select form-select-sm" id="tipoCoordinador">
+                          <option selected="">Seleccionar:</option>
+                          <option value="001">Coordinador</option>
+                          <option value="002">Titular</option>
+                          <option value="003">Alterno</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small" for="aporteMonetarioCoordinador">Aporte Monetario en Soles (S/. ):</label>
+                        <input class="form-control form-control-sm" id="aporteMonetarioCoordinador" type="number"/>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small" for="aporteNoMonetarioCoordinador">Aporte No Monetario en soles (S/. )</label>
+                        <input class="form-control form-control-sm" id="aporteNoMonetarioCoordinador" type="number"/>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-4">
+                    <button class="btn btn-primary me-2 btn-sm" type="button">Añadir Integrante</button>
+                    <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tablaCoordinador" style="width:100%">
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Nombre de Integrante</th>
+                        <th>Tipo Coordinador</th>
+                        <th>Aporte Monetario</th>
+                        <th>Aporte No Monetario</th>
+                        <th>Teléfono</th>
+                        <th style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>XXXXXXXXXXXXXXX</td>
+                            <td>XXXXXXXX</td>
+                            <td>XXXXXXXXXX</td>
+                            <td>XXXXXXXXXX</td>
+                            <td>987654321</td>
+                            <td class="center-celda">
+                                <button class="btn btn-link btn-sm p-0 text-warning me-1" title="Modificar"><span class="material-icons" style="font-size: 1.25rem;">edit</span></button>
+                                <button class="btn btn-link btn-sm p-0 text-danger" title="Eliminar"><span class="material-icons" style="font-size: 1.25rem;">delete</span></button>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+  
+        <div class="card">
+            <div class="card-header" style="background-color: lightgray;">
+                Registrar INTEGRANTES DE INSTITUCION
+            </div>
+            <div class="card-body p-4">
+                <form id="formIntegrantes">
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-12">
+                            <label class="form-label small" for="nombreIntegrante">Nombre de Integrante:</label>
+                            <input class="form-control form-control-sm" id="nombreIntegrante" type="text"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" for="nombreCompletoIntegrante">Nombre:</label>
+                            <input class="form-control form-control-sm" id="nombreCompletoIntegrante" type="text"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" for="cargoIntegrante">Cargo:</label>
+                            <input class="form-control form-control-sm" id="cargoIntegrante" type="text"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" for="tipoIntegrante">Tipo:</label>
+                            <select class="form-select form-select-sm" id="tipoIntegrante">
+                                <option selected="">Seleccionar:</option>
+                                <option value="Titular">Titular</option>
+                                <option value="Alterno">Alterno</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" for="correoIntegrante">Correo:</label>
+                            <input class="form-control form-control-sm" id="correoIntegrante" type="email"/>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mb-4">
+                        <button class="btn btn-primary me-2 btn-sm" type="button">Añadir Coordinador</button>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tablaIntegrantes" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre de Integrante</th>
+                                <th>Cargo</th>
+                                <th>Tipo</th>
+                                <th style="text-align: center;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>XXXXXXXXXXXXXXX</td>
+                                <td>XXXXXXXX</td>
+                                <td>XXXXXXXXXX</td>
+                                <td class="center-celda">
+                                    <button class="btn btn-link btn-sm p-0 text-warning me-1" title="Modificar"><span class="material-icons" style="font-size: 1.25rem;">edit</span></button>
+                                    <button class="btn btn-link btn-sm p-0 text-danger" title="Eliminar"><span class="material-icons" style="font-size: 1.25rem;">delete</span></button>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 text-end">
+        <button type="button" class="btn btn-warning" style="color: white;" (click)="step.nextStepConv()">Siguiente</button>
+    </div>
+  </div>
+  

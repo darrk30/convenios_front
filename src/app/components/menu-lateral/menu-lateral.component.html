@@ -1,0 +1,56 @@
+<!-- <div class="d-flex flex-column w-100" style="padding-right: 20px;padding-left: 20px;">
+  <details class="custom-details">
+    <summary class="custom-summary">Convenios Interinstitucionales</summary>
+    <div class="custom-content">
+      <ul class="custom-list">
+        <li class="custom-list-btn" [class.selected]="selectedMenuIndex === 0" (click)="selectMenu(0)" routerLink="/">Convenio Interinstitucionales</li>
+        <li class="custom-list-btn" [class.selected]="selectedMenuIndex === 1" (click)="selectMenu(1)" routerLink="/registro-convenio">Reporte de Convenios</li>
+      </ul>
+    </div>
+  </details>
+  <details class="custom-details">
+    <summary class="custom-summary">Plan de trabajo</summary>
+    <div class="custom-content">
+      <ul class="custom-list">
+        <li class="custom-list-btn" [class.selected]="selectedMenuIndex === 2" (click)="selectMenu(2)" routerLink="/">Plan de trabajo</li>
+      </ul>
+    </div>
+  </details>
+</div> -->
+<aside class="d-flex flex-column p-3 vh-100 " id="sidebar" style="width: 250px;">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <button class="btn btn-dark d-md-none" id="mobile-close-button" type="button">
+      <span class="material-icons">close</span>
+    </button>
+  </div>
+  <div class="sidebar-brand d-flex align-items-center justify-content-center mb-4">
+    <img src="assets/logos/logoitp.png" alt="Logo ITP" height="30" class="me-2">
+    <span class="h6 mb-0 text-white">Menú principal</span>
+  </div>
+  <ul class="nav nav-pills flex-column flex-grow-1 mb-auto">
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/">
+        <span class="material-icons">description</span> Convenios Interinstitucionales
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">
+        <span class="material-icons">work</span> Planes de Trabajo
+      </a>
+    </li>
+    <li class="pt-2">
+      <span class="sidebar-heading px-1">Reportes</span>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">
+        <span class="material-icons">summarize</span> Reporte de Convenios
+      </a>
+    </li>
+  </ul>
+  <hr class="text-secondary"/>
+  <div class="dropdown">
+    <a class="d-flex align-items-center text-white text-decoration-none p-2" href="#" id="logoutDropdown" role="button">
+      <span class="material-icons me-2">logout</span>Cerrar Sesión
+    </a>
+  </div>
+</aside>

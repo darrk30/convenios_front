@@ -1,0 +1,92 @@
+
+<div class="tab-pane fade show active" id="evaluacion-anual" role="tabpanel" aria-labelledby="evaluacion-anual-tab">
+    <form id="formEvalAnual" class="row g-3 p-3">
+      <div class="col-md-12">
+          <label class="form-label small">Actividades Ejecutadas:</label>
+          <textarea class="form-control form-control-sm" id="actividadesEjecutadas" rows="5"></textarea>
+      </div>
+        <div class="col-md-12">
+          <label class="form-label small">Actividades Programadas:</label>
+          <textarea class="form-control form-control-sm" id="actividadesProgramada" rows="5"></textarea>
+      </div>
+      <div class="col-md-12">
+          <label class="form-label small">Principales Logros:</label>
+          <textarea class="form-control form-control-sm" id="principalesLogros" rows="5"></textarea>
+      </div>
+      <div class="col-md-12">
+          <label class="form-label small">Problemas Presentados:</label>
+          <textarea class="form-control form-control-sm" id="problemasPresentados" rows="5"></textarea>
+      </div>
+      <div class="col-md-12">
+          <label class="form-label small">Lecciones Aprendidas:</label>
+          <textarea class="form-control form-control-sm" id="leccionesAprendidad" rows="5"></textarea>
+      </div>
+        
+        <div class="col-md-6">
+            <label class="form-label small">¿Consideras necesario la extensión o renovación del convenio marco y la realización de nuevas actividades específicas?</label>
+            <div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="renovacionMarcoSwitch" onchange="fncToggleRenovacionMarcoLabel()">
+                    <label class="form-check-label small" for="renovacionMarcoSwitch" id="renovacionMarcoLabel">No</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label small">De acuerdo con la pregunta 6<br>¿Qué nuevas actividades específicas estarían interesados en realizar con dicha institución?</label>
+            <textarea class="form-control form-control-sm" rows="5"></textarea>
+        </div>
+        <div class="d-flex justify-content-end mb-4">
+            <button class="btn btn-primary me-2 btn-sm" type="button">Añadir Evaluación</button>
+            <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+        </div>
+  
+        <div class="col-12">
+            <label class="form-label small">Listado de evaluaciones</label>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tablaEvaluacionAnual" style="width:100%">
+                    <thead class="table-light">
+                        <tr>
+                            <th>id</th>
+                            <th>Actividades Ejec</th>
+                            <th>Actividades Progr</th>
+                            <th>Principales L</th>
+                            <th>Problemas Pres</th>
+                            <th>Lecciones Apre</th>
+                            <th style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>xxxxxxxxx</td>
+                            <td>xxxxxxxxx</td>
+                            <td>xxxxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxxxx</td>
+                            <td class="center-celda">
+                                <button class="btn btn-link btn-sm p-0 text-warning me-1" title="Modificar"><span class="material-icons" style="font-size: 1.25rem;">edit</span></button>
+                                <button class="btn btn-link btn-sm p-0 text-danger" title="Eliminar"><span class="material-icons" style="font-size: 1.25rem;">delete</span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>xxxxxxxxx</td>
+                            <td>xxxxxxxxx</td>
+                            <td>xxxxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxxxx</td>
+                            <td class="center-celda">
+                                <button class="btn btn-link btn-sm p-0 text-warning me-1" title="Modificar"><span class="material-icons" style="font-size: 1.25rem;">edit</span></button>
+                                <button class="btn btn-link btn-sm p-0 text-danger" title="Eliminar"><span class="material-icons" style="font-size: 1.25rem;">delete</span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    <div class="col-12 text-end">
+        <button type="button" class="btn btn-warning" style="color: white;">Siguiente</button>
+    </div>
+  </div>
+  

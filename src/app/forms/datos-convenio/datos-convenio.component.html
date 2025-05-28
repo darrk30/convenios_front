@@ -1,0 +1,99 @@
+<div class="tab-pane fade show active" id="datos-convenio" role="tabpanel" aria-labelledby="datos-convenio-tab">
+    <form id="formDatosConvenio">
+      <div class="row mb-3">
+        <div class="col-md-12 mb-2">
+            <label for="nombreConvenio" class="form-label small">Nombre del Convenio:</label>
+            <input type="text" class="form-control form-control-sm" id="nombreConvenio" name="nombreConvenio"placeholder="Nombre del convenio" [(ngModel)]="nombre_conv" (ngModelChange)="asignarNombre()" >
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6 mb-2">
+            <label for="modalidadConvenio" class="form-label small">Modalidad de Convenio:</label>
+            <select class="form-select form-select-sm" id="modalidadConvenio" (change)="asignarModalidad($event)" [(ngModel)]="modalidadSelect" name="modalidadConv">
+                <option value=0 disabled selected>Seleccione Modalidad Convenio</option>
+                <option *ngFor="let mod of this.modalidad.getModalidadConv()" [value]="mod.modalidad_convenio_id">{{mod.nombre}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-2">
+            <label for="otroModalidad" class="form-label small">Otro Modalidad:</label>
+            <input type="text" class="form-control form-control-sm" id="otroModalidad" disabled>
+        </div>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="objetivos" class="form-label small">Objetivos del Convenio:</label>
+        <textarea class="form-control form-control-sm" id="objetivos" rows="3" style="resize:none;" [(ngModel)]="objetivos_conv" name="objetivos"
+        (input)="asignarObjetivos($event)"></textarea>
+      </div>
+
+
+      <div class="row mb-3">
+        <div class="col-md-3 mb-2">
+            <label for="fechaSuscripcion" class="form-label small">Fecha de Suscripción:</label>
+            <input type="date" class="form-control form-control-sm" id="fechaSuscripcion" [(ngModel)]="fecha_suscripcion_conv" (ngModelChange)="asingarFechaSuscrip()" name="fechaSuscripcion">
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="fechaInicio" class="form-label small">Fecha de Inicio:</label>
+            <input type="date" class="form-control form-control-sm" id="fechaInicio" [(ngModel)]="fecha_ini_conv" (ngModelChange)="asingarFechaIni()" name="fechaInicio">
+            <div *ngIf="fechaInicioError" class="text-danger small mt-1" style="font-size: 0.7rem;">{{ fechaInicioError }}</div>
+        </div>
+        <div class="col-md-3 mb-2">
+            <label for="fechaFinalizacion" class="form-label small">Fecha de Finalización:</label>
+            <input type="date" class="form-control form-control-sm" id="fechaFinalizacion" [(ngModel)]="fecha_fin_conv" (ngModelChange)="asingarFechaFin()" name="fechaFin">
+            <div *ngIf="fechaFinError" class="text-danger small mt-1" style="font-size: 0.7rem;">{{ fechaFinError }}</div>
+        </div>
+        <div class="col-md-3 mb-2">
+          <label for="duracionConvenio" class="form-label small">Duración del convenio:</label>
+          <input type="text" class="form-control form-control-sm" id="duracionConvenio" [value]="datosConvServ.getDuracionAnioConv() + ' Años - ' + datosConvServ.getDuracionMesConv() + ' Meses'" disabled>
+        </div>
+    </div>
+
+    <hr style="border-width: 3px;">
+
+    <div class="mb-3">
+      <label class="form-label small">Requiere Plan de Trabajo:</label>
+      <div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="planTrabajoSwitch" [(ngModel)]="req_plan_trabajo" name="planTrabajoSwitch">
+            <label class="form-check-label small" for="planTrabajoSwitch">{{ req_plan_trabajo ? 'Sí' : 'No' }}</label>
+          </div>
+      </div>
+    </div>
+
+    <hr style="border-width: 3px;">
+
+    <div class="mb-3">
+      <label class="form-label">Renovación:</label>
+      <div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="renovacionSwitch" [(ngModel)]="renovacion_conv" name="renovacionSwitch">
+            <label class="form-check-label small" for="renovacionSwitch">{{ renovacion_conv ? 'Sí' : 'No' }}</label>
+          </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6 mb-2">
+          <label for="fechaInicioRenovacion" class="form-label small">Fecha de Inicio Renovación:</label>
+          <input type="date" class="form-control form-control-sm" id="fechaInicioRenovacion" [disabled]="!renovacion_conv" [(ngModel)]="fecha_ini_renov_conv" (ngModelChange)="asingarFechaIniRenov()" name="fechaIniRenov">
+      </div>
+      <div class="col-md-6 mb-2">
+          <label for="fechaFinalizacionRenovacion" class="form-label small">Fecha de Finalización Renovación:</label>
+          <input type="date" class="form-control form-control-sm" id="fechaFinalizacionRenovacion" [disabled]="!renovacion_conv" [(ngModel)]="fecha_fin_renov_conv" (ngModelChange)="asignarFechaFinRenov()" name="fechaFinRenov">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="mb-3">
+        <label for="observacion" class="form-label small">Observación:</label>
+        <textarea class="form-control form-control-sm" id="observacion" rows="2" [(ngModel)]="observacion_conv" name="observacion"
+        (input)="asignarObservacion($event)"></textarea>
+      </div>
+    </div>
+    
+    <div class="text-end">
+        <button type="submit" class="btn btn-warning" style="color: white;" (click)="guardarConvenio()" >Guardar y Continuar</button>
+    </div>
+    </form>
+</div>

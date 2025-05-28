@@ -1,0 +1,7 @@
+{
+  "/acuerdosapi": {
+    "target": "https://srvwinbedev.itp.gob.pe",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

@@ -1,0 +1,114 @@
+.step.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+/* .nav-button {
+  background: #2566d8;
+  min-width: 10rem;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.2rem 0.5rem 0.8rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  position: relative;
+  outline: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+  border-right: none;
+  margin-right: 15px;
+}
+
+.nav-button::before {
+  display: none;
+}
+
+.nav-button::after {
+  display: none;
+}
+
+.nav-button.active {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.nav-button:not(.active) {
+  background: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.btn-volver {
+  position: relative;
+  background: #566d97d3;
+  margin-left: -3rem;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+  min-width: 10rem;
+  outline: none;
+  transition: background 0.2s, color 0.2s;
+  clip-path: polygon(18px 0, 100% 0, 100% 100%, 18px 100%, 0 50%);
+}
+
+.btn-volver {
+  position: relative;
+  background: #566d97d3;
+  margin-left: -3rem;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+  min-width: 10rem;
+  outline: none;
+  transition: background 0.2s, color 0.2s;
+  clip-path: polygon(18px 0, 100% 0, 100% 100%, 18px 100%, 0 50%);
+}
+
+.btn-volver span {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-volver:hover {
+  background: #3c4a6b;
+}
+
+.btn-volver:hover::before {
+  background: #3c4a6b;
+  border-left-color: #232a3d;
+}
+
+.btn-volver::after {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-right: 14px solid #566d97d3;
+  z-index: 1;
+  transition: border-right-color 0.2s;
+}
+
+.btn-volver:hover::after {
+  border-right-color: #3c4a6b;
+} */
