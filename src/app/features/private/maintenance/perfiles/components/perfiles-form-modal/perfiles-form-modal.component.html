@@ -1,0 +1,33 @@
+<form (ngSubmit)="grabar()" [formGroup]="formData">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Código Perfil</label>
+                <input class="form-control" placeholder="Ingresar en Código Perfil" type="text" autocomplete="off" formControlName="codigoPerfil" [ngClass]="{'is-invalid': submitted && formData.get('codigoPerfil').errors}" />
+                <div *ngIf="submitted && formData.get('codigoPerfil').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('codigoPerfil').errors.required">Código Perfil es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Perfil</label>
+                <input class="form-control" placeholder="Ingresar en Perfil" type="text" autocomplete="off" formControlName="perfil" [ngClass]="{'is-invalid': submitted && formData.get('perfil').errors}" />
+                <div *ngIf="submitted && formData.get('perfil').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('perfil').errors.required">Perfil es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="row">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form>

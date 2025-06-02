@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    
+    <app-page-title title="Lista de Perfiles" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Perfil</label>
+                                <input class="form-control" placeholder="Ingresar Perfil" type="text" [maxLength]="30" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div class="float-start">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="crear(modalPerfil)">Agregar</button>
+                            </div>
+                            <div class="float-end">
+                                <button type="button" class="btn btn-danger" (click)="informeBuscar()">Buscar</button>
+                            </div> 
+                        </div><!-- end col-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+                            <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 45%;">Código Perfil</th>
+                                        <th scope="col" style="width: 50%;">Perfil</th>
+                                        <th scope="col" style="width: 5%;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for(perfil of perfilesStateService.items();track $index){
+                                    <tr>
+                                        <td>{{perfil.codigoPerfil}}</td>
+                                        <td>{{perfil.perfil}}</td>
+                                        <td>
+                                            <div  class="dropdown" dropdown placement="bottom-right">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle aria-expanded="false">
+                                                    Acciones <i class="mdi mdi-chevron-down font-size-14"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                                                    <li><a href="javascript: void(0);" class="dropdown-item" (click)="editar(modalPerfil,perfil)"><i class="fas fa-pencil-alt text-success me-1"></i>Editar</a></li>
+                                                    <li><a href="javascript: void(0);" class="dropdown-item" (click)="eliminar(perfil.idePerfil)"><i class="fas fa-trash-alt text-danger me-1"></i>Eliminar</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>}
+                                </tbody>
+                            </table>
+                            <!-- Paginación Global -->
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="btn btn-outline-primary" (click)="paginaAnterior()" [disabled]="currentPage === 1">
+                                    ← Anterior
+                                </button>
+                                <span>Página {{ currentPage }} de {{ totalPages }}</span>
+                                <button class="btn btn-outline-primary" (click)="siguientePagina()" [disabled]="currentPage * pageSize >= totalItems">
+                                    Siguiente →
+                                </button>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #modalPerfil role="document" let-modal>
+	<div class="modal-header">
+        <h5 class="modal-title mt-0">{{tituloModal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"></button>
+	</div>
+	<div class="modal-body">
+		<app-perfiles-form-modal [modalRef]="modalRef" [perfil]="perfil"></app-perfiles-form-modal>
+	</div>
+</ng-template>
