@@ -1,0 +1,300 @@
+<div class="container-fluid">
+    <app-page-title title="Convenio" [flgBotonRegresar]="true" [idePagina]="idePagina" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="grabar()" [formGroup]="formData">
+                        <ng-stepper #cdkStepper [linear]="true" class="wizard">
+                            <cdk-step [optional]="false" >
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-file-blank fs-2"></span>
+                                    <span>DATOS DEL CONVENIO</span>
+                                </ng-template>
+                                <section>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Nombre del Convenio:</label>
+                                                <input class="form-control" placeholder="Ingrese nombre del Convenio" type="text" autocomplete="off" formControlName="txtConvenio" [ngClass]="{'is-invalid': submitted && formData.get('txtConvenio').errors}" />
+                                                <div *ngIf="submitted && formData.get('txtConvenio').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('txtConvenio').errors.required">Nombre del Convenio es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Modalidad de Convenio:</label>
+                                                <select class="form-control form-select" formControlName="ideModalidadConvenio" [ngClass]="{'is-invalid': submitted && formData.get('ideModalidadConvenio').errors}">
+                                                    <option [ngValue]="null">Seleccionar</option>
+                                                    @for(modalidadConvenio of modalidadesConveniosStateService.items();track $index){
+                                                        <option value="{{modalidadConvenio.ideModalidadConvenio}}">{{modalidadConvenio.txtModalidadConvenio}}</option>
+                                                    }
+                                                </select>
+                                                <div *ngIf="submitted && formData.get('ideModalidadConvenio').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('ideModalidadConvenio').errors.required">Modalidad de Convenio es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Estado de Convenio:</label>
+                                                <select class="form-control form-select" formControlName="ideEstadoConvenio" [ngClass]="{'is-invalid': submitted && formData.get('ideEstadoConvenio').errors}">
+                                                    <option [ngValue]="null">Seleccionar</option>
+                                                    @for(estadoConvenio of estadosConveniosStateService.items();track $index){
+                                                        <option value="{{estadoConvenio.ideEstadoConvenio}}">{{estadoConvenio.txtEstadoConvenio}}</option>
+                                                    }
+                                                </select>
+                                                <div *ngIf="submitted && formData.get('ideEstadoConvenio').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('ideEstadoConvenio').errors.required">Estado de Convenio es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Objetivos del Convenio:</label>
+                                                <textarea class="form-control" placeholder="Ingrese objetivos del Convenio" autocomplete="off" formControlName="txtObjetivoConvenio" [ngClass]="{'is-invalid': submitted && formData.get('txtObjetivoConvenio').errors}"></textarea>
+                                                <div *ngIf="submitted && formData.get('txtObjetivoConvenio').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('txtObjetivoConvenio').errors.required">Objetivos del Convenio es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha Suscripción:</label>
+                                                <input class="form-control" placeholder="Ingrese Fecha Suscripción" type="date" autocomplete="off" formControlName="fecSuscripcion" [ngClass]="{'is-invalid': submitted && formData.get('fecSuscripcion').errors}" >
+                                                <div *ngIf="submitted && formData.get('fecSuscripcion').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('fecSuscripcion').errors.required">Fecha Suscripción es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha Inicio:</label>
+                                                <input class="form-control" placeholder="Ingrese Fecha Inicio" type="date" autocomplete="off" formControlName="fecInicio" [ngClass]="{'is-invalid': submitted && formData.get('fecInicio').errors}" >
+                                                <div *ngIf="submitted && formData.get('fecInicio').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('fecInicio').errors.required">Fecha Inicio es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha Fin:</label>
+                                                <input class="form-control" placeholder="Ingrese Fecha Fin" type="date" autocomplete="off" formControlName="fecFinalizacion" [ngClass]="{'is-invalid': submitted && formData.get('fecFinalizacion').errors}" >
+                                                <div *ngIf="submitted && formData.get('fecFinalizacion').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('fecFinalizacion').errors.required">Fecha Fin es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Duración del convenio:</label>
+                                                <input class="form-control" placeholder="Ingrese Duración del convenio" type="text" autocomplete="off" formControlName="txtDuracionConvenio" [ngClass]="{'is-invalid': submitted && formData.get('txtDuracionConvenio').errors}" />
+                                                <div *ngIf="submitted && formData.get('txtDuracionConvenio').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('txtDuracionConvenio').errors.required">Duración del convenio es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- Mensajes de error del grupo (validaciones cruzadas) -->
+                                        <div class="col-md-12" *ngIf="submitted && formData.errors" style="margin-top: -10px;">
+                                            <div class="text-danger" *ngIf="formData.errors.fechaInicioAntesSuscripcion">
+                                                La fecha de inicio no puede ser anterior a la de suscripción.
+                                            </div>
+                                            <div class="text-danger" *ngIf="formData.errors.fechaFinAntesInicio">
+                                                La fecha de finalización no puede ser anterior a la de inicio.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Requiere Plan:</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" formControlName="bitPlanTrabajo" [ngClass]="{'is-invalid': submitted && formData.get('bitPlanTrabajo').errors}" checked>
+                                                   
+                                                    <div *ngIf="submitted && formData.get('bitPlanTrabajo').errors" class="invalid-feedback">
+                                                        <span *ngIf="formData.get('bitPlanTrabajo').errors.required">Requiere Plan es requerido.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Renovación:</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" formControlName="bitRenovacion" [ngClass]="{'is-invalid': submitted && formData.get('bitRenovacion').errors}" checked>
+                                                   
+                                                    <div *ngIf="submitted && formData.get('bitRenovacion').errors" class="invalid-feedback">
+                                                        <span *ngIf="formData.get('bitRenovacion').errors.required">Renovación es requerido.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <!-- <label class="control-label required-label">Adjuntar archivo <span *ngIf="this.formData.get('uuid').value" (click)="descargar()"><i class="fas fa-download"></i></span> </label> -->
+                                                <label class="control-label required-label">Adjuntar archivo </label>
+                                                <div class="custom-file-container">
+                                                    <input *ngIf="this.flagAction != 3" class="form-control" type="file" id="fileInput" (change)="onFileSelected($event)" [ngClass]="{'is-invalid': submitted && formData.get('archivo').errors}" hidden>
+                                                    <button type="button" class="btn btn-success" *ngIf="this.formData.get('txtArchivoBaseLegalRuta').value" (click)="descargar()"><i class="fas fa-download me-1"></i></button>
+                                                    <button *ngIf="this.flagAction != 3" type="button" class="btn btn-danger" (click)="triggerFileInput()">Seleccionar archivo</button>
+                                                    
+                                                    <span *ngIf="this.flagAction != 3" class="file-name">{{ selectedFileName  || 'Ningún archivo seleccionado' }}</span>
+                                                    <div *ngIf="submitted && formData.get('archivo').errors" class="invalid-feedback">
+                                                        <span *ngIf="formData.get('archivo').errors.required">El archivo es requerido.</span>
+                                                        <span *ngIf="formData.get('archivo').errors.formatoInvalido">El archivo debe ser formato PDF.</span>  
+                                                        <span *ngIf="formData.get('archivo').errors.tamanoInvalido">El archivo debe tener un tamaño entre 0 y {{tamanioArchivo}} MB.</span>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha de Inicio Renovación:</label>
+                                                <input class="form-control" placeholder="Ingrese Fecha de Inicio Renovación" type="date" autocomplete="off" formControlName="fecInicioRenovacion" [ngClass]="{'is-invalid': submitted && formData.get('fecInicioRenovacion').errors}" >
+                                                <div *ngIf="submitted && formData.get('fecInicioRenovacion').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('fecInicioRenovacion').errors.required">Fecha de Inicio Renovación es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha de Finalización Renovación:</label>
+                                                <input class="form-control" placeholder="Ingrese Fecha de Finalización Renovación" type="date" autocomplete="off" formControlName="fecFinRenovacion" [ngClass]="{'is-invalid': submitted && formData.get('fecFinRenovacion').errors}" >
+                                                <div *ngIf="submitted && formData.get('fecFinRenovacion').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('fecFinRenovacion').errors.required">Fecha de Finalización Renovación es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Observación:</label>
+                                                <textarea class="form-control" placeholder="Ingrese Observación" autocomplete="off" formControlName="txtObservacion" [ngClass]="{'is-invalid': submitted && formData.get('txtObservacion').errors}"></textarea>
+                                                <div *ngIf="submitted && formData.get('txtObservacion').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('txtObservacion').errors.required">Observación es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3" *ngIf="this.flagAction != 3">
+                                        <div class="col-md-12">
+                                            <div class="float-start">
+                                                <button type="submit" class="btn btn-success">Grabar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </cdk-step>
+                            <cdk-step [optional]="true" *ngIf="this.formData.get('ideConvenio').value">
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-building fs-2"></span>
+                                    <span>DATOS DEL ITP</span>
+                                </ng-template>
+                                <section>
+                                    <app-oficinas-proponentes-list *ngIf="flagAction !== undefined" [ideConvenio]="this.formData.get('ideConvenio').value" [flagAction]="flagAction"></app-oficinas-proponentes-list>
+
+                                </section>
+                            </cdk-step>
+                            <cdk-step [optional]="true" *ngIf="this.formData.get('ideConvenio').value">
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-user-detail fs-2"></span>
+                                    <span>CONTRAPARTES</span>
+                                </ng-template>
+                                <section>
+                                    <app-contrapartes-list *ngIf="flagAction !== undefined"  [ideConvenio]="this.formData.get('ideConvenio').value" [flagAction]="flagAction"></app-contrapartes-list>
+                                    <app-contrapartes-coordinador-list *ngIf="flagAction !== undefined"  [ideConvenio]="this.formData.get('ideConvenio').value" [flagAction]="flagAction"></app-contrapartes-coordinador-list>
+                                </section>
+                            </cdk-step>
+                            <!-- <cdk-step [optional]="true" >
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-chart fs-2"></span>
+                                    <span>EVALUACIÓN ANUAL</span>
+                                </ng-template>
+                            </cdk-step> -->
+                            <cdk-step [optional]="true" *ngIf="this.formData.get('ideConvenio').value && this.formData.get('bitPlanTrabajo').value">
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-calendar-check fs-2"></span>
+                                    <span>PLAN DE TRABAJO</span>
+                                </ng-template>
+                                <section>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Objetivo General del Plan de Trabajo:</label>
+                                                <textarea class="form-control" placeholder="Ingrese Objetivo General del Plan de Trabajo" autocomplete="off" formControlName="txtObjetivoGeneralPlanTrabajo" [ngClass]="{'is-invalid': submitted && formData.get('txtObjetivoGeneralPlanTrabajo').errors}"></textarea>
+                                                <div *ngIf="submitted && formData.get('txtObjetivoGeneralPlanTrabajo').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('txtObjetivoGeneralPlanTrabajo').errors.required">Objetivo General del Plan de Trabajo es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Fecha de Culminación:</label>
+                                                <input class="form-control" placeholder="Ingrese Fecha de Culminación" type="date" autocomplete="off" formControlName="fecCulminacionPlanTrabajo" [ngClass]="{'is-invalid': submitted && formData.get('fecCulminacionPlanTrabajo').errors}" >
+                                                <div *ngIf="submitted && formData.get('fecCulminacionPlanTrabajo').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('fecCulminacionPlanTrabajo').errors.required">Fecha de Culminación es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Reg. Costo Total Monetario (S/. ):</label>
+                                                <input class="form-control" placeholder="Ingrese Reg. Costo Total Monetario" type="text" autocomplete="off" formControlName="numCostoTotalMonetario" [ngClass]="{'is-invalid': submitted && formData.get('numCostoTotalMonetario').errors}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 10) this.value = this.value.slice(0, 10);" maxlength="10"/>
+                                                <div *ngIf="submitted && formData.get('numCostoTotalMonetario').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('numCostoTotalMonetario').errors.required">Reg. Costo Total Monetario es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3" *ngIf="this.flagAction != 3">
+                                        <div class="col-md-12">
+                                            <div class="float-start">
+                                                <button type="submit" class="btn btn-success">Grabar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <app-resultados-list [flagAction]="flagAction" [ideConvenio]="this.formData.get('ideConvenio').value"></app-resultados-list>
+                                    
+                                </section>
+                            </cdk-step>
+                            <!-- <cdk-step [optional]="true" >
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-pie-chart-alt-2 fs-3"></span>
+                                    <span>EVALUACIÓN ANUAL PT</span>
+                                </ng-template>
+                            </cdk-step> -->
+                            <cdk-step [optional]="true" *ngIf="this.formData.get('ideConvenio').value">
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-cloud-upload fs-2"></span>
+                                    <span>ADJUNTAR ARCHIVOS</span>
+                                </ng-template>
+                                <section>
+                                    <app-archivos-list [flagAction]="flagAction" [ideConvenio]="this.formData.get('ideConvenio').value"></app-archivos-list>
+                                </section>
+                            </cdk-step>
+                        </ng-stepper>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

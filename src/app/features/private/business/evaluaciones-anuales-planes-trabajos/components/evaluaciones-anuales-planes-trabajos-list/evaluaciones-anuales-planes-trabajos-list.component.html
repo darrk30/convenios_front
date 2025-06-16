@@ -1,0 +1,101 @@
+<div class="container-fluid">
+    
+    <app-page-title title="Lista de Evaluaciones Anuales de Planes de Trabajos" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="buscar()" [formGroup]="formData">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Convenio</label>
+                                    <ng-select
+                                        formControlName="ideConvenio"
+                                        [items]="listarConvenios()"
+                                        bindLabel="txtConvenio"
+                                        bindValue="ideConvenio"
+                                        placeholder="Seleccionar convenio"
+                                        [searchable]="true"
+                                        [clearable]="true">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha de Evaluación</label>
+                                    <input type="date" class="form-control" formControlName="fecEvaluacion" onclick="this.showPicker()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="float-start">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="crear(modalEntidad)">Agregar</button>
+                                </div>
+                                <div class="float-end">
+                                    <button type="submit" class="btn btn-info" >Buscar</button> &nbsp;
+                                </div> 
+                            </div><!-- end col-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">
+                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 30%;">Convenio</th>
+                                        <th scope="col" style="width: 15%;">Fecha Evaluación</th>
+                                        <th scope="col" style="width: 20%;">Información Plan Trabajo</th>
+                                        <th scope="col" style="width: 15%;">Archivo</th>
+                                        <th scope="col" style="width: 5%;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for(evaluacionAnualPlanTrabajo of evaluacionesAnualesPlanesTrabajosFiltrados;track $index){
+                                    <tr>
+                                        <td>{{ evaluacionAnualPlanTrabajo.convenio?.txtConvenio }}</td>
+                                        <td>{{ evaluacionAnualPlanTrabajo.fecEvaluacion | date:'yyyy-MM-dd' }}</td>
+                                        <td>{{ evaluacionAnualPlanTrabajo.txtInformacionPlanTrabajo }}</td>
+                                        <td><button type="button" class="btn btn-danger" (click)="descargar(evaluacionAnualPlanTrabajo)"><i class="fas fa-download me-1"></i></button> </td>
+                                        <td>
+                                            <div class="dropdown" dropdown placement="bottom-right">
+                                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle aria-expanded="false">
+                                                    Acciones <i class="mdi mdi-chevron-down font-size-14"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                                                    <li><a href="javascript: void(0);" class="dropdown-item" (click)="editar(modalEntidad,evaluacionAnualPlanTrabajo)"><i class="fas fa-pencil-alt text-success me-1"></i>Editar</a></li>
+                                                    <li><a href="javascript: void(0);" class="dropdown-item" (click)="eliminar(evaluacionAnualPlanTrabajo.ideEvaluacionAnualPlanTrabajo)"><i class="fas fa-trash-alt text-danger me-1"></i>Eliminar</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>}
+                                </tbody>
+                            </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #modalEntidad role="document" let-modal>
+	<div class="modal-header">
+        <h5 class="modal-title mt-0">{{tituloModal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"></button>
+	</div>
+	<div class="modal-body">
+		<app-evaluaciones-anuales-planes-trabajos-form-modal [modalRef]="modalRef" [flagAccion]="flagAccion" [evaluacionAnualPlanTrabajo]="evaluacionAnualPlanTrabajo" (onSave)="listar()"></app-evaluaciones-anuales-planes-trabajos-form-modal>
+	</div>
+</ng-template>

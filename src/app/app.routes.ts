@@ -18,10 +18,24 @@ export const routes: Routes = [
         canActivate: [KeycloakSsoGuard],
     },
     {
+        path: "negocio",
+        component: LayoutComponent,
+        loadChildren: () =>
+            import("./features/private/business/business.module").then((m) => m.BusinessModule),
+        canActivate: [KeycloakSsoGuard],
+    },
+    {
         path: "mantenimiento",
         component: LayoutComponent,
         loadChildren: () =>
             import("./features/private/maintenance/maintenance.module").then((m) => m.MaintenanceModule),
+        canActivate: [KeycloakSsoGuard],
+    },
+    {
+        path: "reporte",
+        component: LayoutComponent,
+        loadChildren: () =>
+            import("./features/private/reporting/reporting.module").then((m) => m.ReportingModule),
         canActivate: [KeycloakSsoGuard],
     },
     {

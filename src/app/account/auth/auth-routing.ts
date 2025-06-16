@@ -5,10 +5,10 @@ import { LoginComponent } from './login/login.component';
 import { SsoComponent } from './sso/sso.component';
 
 const routes: Routes = [
-    {
-        path: 'login',
-        component: LoginComponent
-    },
+    // {
+    //     path: 'login',
+    //     component: LoginComponent
+    // },
     {
         path: 'sso',
         component: SsoComponent

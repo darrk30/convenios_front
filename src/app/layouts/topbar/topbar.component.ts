@@ -88,7 +88,7 @@ export class TopbarComponent implements OnInit {
 	 */
 	logout() {
 		this.autenticacionService.logout();
-		this.router.navigate(['/auth/login']);
+		this.router.navigate(['/auth/sso']);
 	}
 
 	/**

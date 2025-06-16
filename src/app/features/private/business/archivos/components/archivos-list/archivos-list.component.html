@@ -1,0 +1,74 @@
+
+<div class="card ">
+    <div class="card-header">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="float-start">
+                    <h3>Lista de Archivos</h3> 
+                </div>
+                <div class="float-end" *ngIf="this.flagAction != 3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="crear(modalArchivo)">Agregar</button>
+                </div> 
+            </div><!-- end col-->
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 25%;">Tipo Documento</th>
+                            <th scope="col" style="width: 45%;">Nombre del Archivo</th>
+                            <th scope="col" style="width: 25%;">Archivo</th>
+                            <th *ngIf="this.flagAction != 3" scope="col" style="width: 5%;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(archivo of archivosStateService.items();track $index){
+                        <tr>
+                            <td>
+
+                                {{archivo.tipoDocumento?.txtTipoDocumento}}
+                                @if (archivo.ideTipoDocumento == 3) {
+                                    - {{archivo.txtTipoDocumentoOtro}}
+                                }
+                            </td>
+                            <td>{{archivo.txtArchivo}}</td>
+                            <td>
+                                @if (archivo.txtArchivoRuta){
+                                <button type="button" class="btn btn-danger" (click)="descargar(archivo)">
+                                    <i class="bx bxs-file-pdf me-1 bx-sm"></i>
+                                    <!-- <i class="bx bx-download me-1"></i> -->
+                                </button>
+                                }
+                                <!-- <button type="button" class="btn btn-danger" (click)="descargar(archivo)"><i class="fas fa-download me-1"></i></button>  -->
+                            </td>
+                            <td *ngIf="this.flagAction != 3">
+                                <div  class="dropdown" dropdown placement="bottom-right">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle aria-expanded="false">
+                                        Acciones <i class="mdi mdi-chevron-down font-size-14"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                                        <!-- <li><a href="javascript: void(0);" class="dropdown-item" (click)="editar(modalResultado,archivo)"><i class="fas fa-pencil-alt text-success me-1"></i>Editar</a></li> -->
+                                        <li><a href="javascript: void(0);" class="dropdown-item" (click)="eliminar(archivo.ideArchivo)"><i class="fas fa-trash-alt text-danger me-1"></i>Eliminar</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalArchivo role="document" let-modal>
+	<div class="modal-header">
+        <h5 class="modal-title mt-0">{{tituloModal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"></button>
+	</div>
+	<div class="modal-body">
+		<app-archivos-form-modal [modalRef]="modalRef" [archivo]="archivo" (onSave)="listar()"></app-archivos-form-modal>
+	</div>
+</ng-template>

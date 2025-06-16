@@ -5,11 +5,14 @@ export function transformFormData(obj: any): any {
             this.transformFormData(obj[key]);
         } else if (obj[key] === null) {
             delete obj[key]; // Elimina las propiedades con valor null
-        } else if (obj[key] === true) {
-            obj[key] = 1; // Convierte true a 1
-        } else if (obj[key] === false) {
-            obj[key] = 0; // Convierte false a 0
-        }
+        } else if (obj[key] === "null") {
+            delete obj[key]; // Elimina las propiedades con valor null
+        } 
+        // else if (obj[key] === true) {
+        //     obj[key] = 1; // Convierte true a 1
+        // } else if (obj[key] === false) {
+        //     obj[key] = 0; // Convierte false a 0
+        // }
     });
     return obj;
 }
@@ -36,4 +39,28 @@ export function appendFormData(formData: FormData, data: any, parentKey: string 
             formData.append(formKey, String(value));
         }
     });
+}
+
+export function toDateInputValue(value: string | Date | null): string | null {
+    if (!value) return null;
+    const date = typeof value === 'string' ? new Date(value) : value;
+    return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
+}
+
+export function limpiarCamposVacios(obj: any): any {
+    const limpio: any = {};
+    Object.keys(obj).forEach(key => {
+        const value = obj[key];
+
+        // Si es objeto (anidado) recursivo
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+            const nested = limpiarCamposVacios(value);
+            if (Object.keys(nested).length > 0) {
+                limpio[key] = nested;
+            }
+        } else if (value !== null && value !== '' && value !== undefined && value !== 'null') {
+            limpio[key] = value;
+        }
+    });
+    return limpio;
 }

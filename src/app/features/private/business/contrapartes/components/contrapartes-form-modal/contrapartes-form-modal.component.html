@@ -1,0 +1,62 @@
+<form (ngSubmit)="grabar()" [formGroup]="formData">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Institución</label>
+                <!-- <ng-select [items]="selectValue"></ng-select>
+
+                <select class="form-control form-select" formControlName="ideInstitucion" [ngClass]="{'is-invalid': submitted && formData.get('ideInstitucion').errors}">
+                    <option value=null>Seleccionar</option>
+                    @for(institucion of institucionesStateService.items();track $index){
+                        <option value="{{institucion.ideInstitucion}}">{{institucion.txtInstitucion}}</option>
+                    }
+                </select> -->
+
+                <ng-select
+                    [items]="institucionesStateService.items()"
+                    bindLabel="txtInstitucion"
+                    bindValue="ideInstitucion"
+                    placeholder="Seleccionar institución"
+                    formControlName="ideInstitucion"
+                    [ngClass]="{'is-invalid': submitted && formData.get('ideInstitucion')?.invalid}"
+                    [searchable]="true"
+                    [clearable]="false">
+                </ng-select>
+
+                <div *ngIf="submitted && formData.get('ideInstitucion').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('ideInstitucion').errors.required">Institución es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Aporte Monetario en Soles (S/. ):</label>
+                <input type="text" class="form-control" placeholder="Ingrese Aporte Monetario" autocomplete="off" formControlName="numAporteMonetario" [ngClass]="{'is-invalid': submitted && formData.get('numAporteMonetario').errors}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 10) this.value = this.value.slice(0, 10);" maxlength="10">
+                <div *ngIf="submitted && formData.get('numAporteMonetario').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('numAporteMonetario').errors.required">Aporte Monetario es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Aporte No Monetario en Soles (S/. ):</label>
+                <input type="text" class="form-control" placeholder="Ingrese Aporte No Monetario" autocomplete="off" formControlName="numAporteNoMonetario" [ngClass]="{'is-invalid': submitted && formData.get('numAporteNoMonetario').errors}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 10) this.value = this.value.slice(0, 10);" maxlength="10">
+                <div *ngIf="submitted && formData.get('numAporteNoMonetario').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('numAporteNoMonetario').errors.required">Aporte No Monetario es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row" *ngIf="flagAccion != 3">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form>

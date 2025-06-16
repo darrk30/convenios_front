@@ -1,0 +1,136 @@
+import { Injectable, signal } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { PaginationService } from 'src/app/core/services/pagination.service';
+import { ContraparteCoordinador, ContraparteCoordinadorRpta } from '../data/contraparte-coordinador.model';
+import { ContrapartesCoordinadorRepository } from '../data/contrapartes-coordinador.repository';
+import { Observable, Subject } from 'rxjs';
+
+
+@Injectable({ providedIn: 'root' })
+export class ContrapartesCoordinadorStateService {
+    items = signal<ContraparteCoordinador[]>([]);
+    item = signal<ContraparteCoordinador | null>(null);
+    
+    private _refreshTrigger = new Subject<void>();
+    refreshTrigger$ = this._refreshTrigger.asObservable();
+
+    constructor(
+        private contrapartesCoordinadorRepository: ContrapartesCoordinadorRepository,
+        private spinner: NgxSpinnerService,
+        private toastr: ToastrService,
+    ) {
+        this.clearState();
+    }
+
+    clearState() {
+        this.item.set(null);
+        this.items.set([]);
+    }
+
+    loadItemsByConvenio(ideConvenio:number): Observable<void> {
+        //this.items.set([]);
+        const subject = new Subject<void>();
+        this.spinner.show();
+        this.contrapartesCoordinadorRepository.getAllByConvenio(ideConvenio).subscribe({
+            next: (data:ContraparteCoordinadorRpta) => {
+                this.items.set(data.datos);
+                this.spinner.hide();
+                subject.next();
+                subject.complete();
+            },
+            error: () => {
+                this.spinner.hide();
+                subject.error('Error');
+            },
+        });
+
+        return subject.asObservable();
+    }
+
+
+    loadItems(page: number = 1) {
+        this.spinner.show();
+        this.contrapartesCoordinadorRepository.getAll().subscribe({
+            next: (data:ContraparteCoordinadorRpta) => {
+                this.items.set(data.datos);
+                this.spinner.hide();
+            },
+            error: () => this.spinner.hide(),
+        });
+    }
+
+    loadItemById(id: number) {
+        this.spinner.show();
+        this.contrapartesCoordinadorRepository.getBydId(id).subscribe({
+            next: (data) => {
+                this.item.set(data.dato);
+                this.spinner.hide();
+            },
+            error: () => this.spinner.hide(),
+        });
+    }
+
+    addItem(item: ContraparteCoordinador, onSuccess?: () => void) {
+        this.spinner.show();
+        this.contrapartesCoordinadorRepository.create(item).subscribe({
+            next: (data) => {
+                //this.loadItems();
+                this.toastr.success('ContraparteCoordinador registrado correctamente');
+                this.spinner.hide();
+                if (onSuccess) onSuccess();
+            },
+            error: () => {
+                this.toastr.error('Error al registrar el ContraparteCoordinador');
+                this.spinner.hide();
+            }
+        });
+    }
+
+    updateItem(id: number, item: ContraparteCoordinador, onSuccess?: () => void) {
+        this.spinner.show();
+        this.contrapartesCoordinadorRepository.update(id, item).subscribe({
+            next: () => {
+                //this.loadItems();
+                this.toastr.success('ContraparteCoordinador actualizado correctamente');
+                this.spinner.hide();
+                if (onSuccess) onSuccess();
+            },
+            error: () => {
+                this.toastr.error('Error al actualizar el ContraparteCoordinador');
+                this.spinner.hide();
+            }
+        });
+    }
+
+    postForm(item: ContraparteCoordinador, id?: number, onSuccess?: () => void){
+        if(id){
+            this.updateItem(id, item, onSuccess)
+        }else{
+            this.addItem(item, onSuccess)
+        }
+    }
+
+    deleteItem(id: number): Observable<void> {
+        this.spinner.show();
+        const subject = new Subject<void>();
+        this.contrapartesCoordinadorRepository.delete(id).subscribe({
+            next: () => {
+                //this.loadItems();
+                this.toastr.success('ContraparteCoordinador eliminado correctamente');
+                this.spinner.hide();
+                subject.next();
+                subject.complete();
+            },
+            error: () => {
+                this.toastr.error('Error al eliminar el ContraparteCoordinador');
+                this.spinner.hide();
+            }
+        });
+        return subject.asObservable();
+    }
+
+    emitRefresh() {
+        this._refreshTrigger.next();
+    }
+}

@@ -1,0 +1,59 @@
+
+<div class="card ">
+    <div class="card-header">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="float-start">
+                    <h3>Lista de Resultados</h3> 
+                </div>
+                <div class="float-end" *ngIf="this.flagAction != 3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="crear(modalResultado)">Agregar</button>
+                </div> 
+            </div><!-- end col-->
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 40%;">Resultado</th>
+                            <th scope="col" style="width: 55%;">Descripción</th>
+                            <th scope="col" style="width: 5%;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(resultado of resultadosStateService.items();track $index){
+                        <tr>
+                            <td>{{resultado.txtResultado}}</td>
+                            <td>{{resultado.txtDescripcion}}</td>
+                            <td>
+                                <div  class="dropdown" dropdown placement="bottom-right">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle aria-expanded="false">
+                                        Acciones <i class="mdi mdi-chevron-down font-size-14"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                                        <li *ngIf="this.flagAction != 3"><a href="javascript: void(0);" class="dropdown-item" (click)="editar(modalResultado,resultado)"><i class="fas fa-pencil-alt text-success me-1"></i>Editar</a></li>
+                                        <li><a href="javascript: void(0);" class="dropdown-item" (click)="ver(modalResultado,resultado)"><i class="fas fa-eye text-success me-1"></i>Ver</a></li>
+                                        <li *ngIf="this.flagAction != 3"><a href="javascript: void(0);" class="dropdown-item" (click)="eliminar(resultado.ideResultado)"><i class="fas fa-trash-alt text-danger me-1"></i>Eliminar</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalResultado role="document" let-modal>
+	<div class="modal-header">
+        <h5 class="modal-title mt-0">{{tituloModal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"></button>
+	</div>
+	<div class="modal-body">
+		<app-resultados-form-modal [modalRef]="modalRef" [resultado]="resultado" [flagAccion]="flagAccion" (onSave)="listar()"></app-resultados-form-modal>
+	</div>
+</ng-template>

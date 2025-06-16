@@ -1,0 +1,33 @@
+<form (ngSubmit)="grabar()" [formGroup]="formData">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Resultado:</label>
+                <textarea class="form-control" placeholder="Ingrese Resultado" autocomplete="off" formControlName="txtResultado" [ngClass]="{'is-invalid': submitted && formData.get('txtResultado').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtResultado').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtResultado').errors.required">Resultado es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Descripción:</label>
+                <textarea class="form-control" placeholder="Ingrese Descripción" autocomplete="off" formControlName="txtDescripcion" [ngClass]="{'is-invalid': submitted && formData.get('txtDescripcion').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtDescripcion').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtDescripcion').errors.required">Descripción es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="row" *ngIf="flagAccion != 3">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form>

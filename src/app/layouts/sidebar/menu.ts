@@ -19,19 +19,19 @@ export const MENU: MenuItem[] = [
             },
         ]
     },
-    // {
-    //     id: 4,
-    //     label: 'Mantenimiento',
-    //     icon: 'bx-home-circle',
-    //     subItems: [
-    //         {
-    //             id: 5,
-    //             label: 'Perfiles',
-    //             link: '/mantenimiento/perfil',
-    //             parentId: 4
-    //         }
-    //     ]
-    // },
+    {
+        id: 4,
+        label: 'Mantenimiento',
+        icon: 'bx-wrench',
+        subItems: [
+            {
+                id: 5,
+                label: 'Institución',
+                link: '/mantenimiento/institucion',
+                parentId: 4
+            }
+        ]
+    },
     {
         id: 6,
         label: 'Operaciones',
@@ -40,9 +40,40 @@ export const MENU: MenuItem[] = [
             {
                 id: 7,
                 label: 'Convenios',
-                link: '/convenio',
+                link: '/negocio/convenio',
                 parentId: 6
             },
+            {
+                id: 8,
+                label: 'Seguimiento',
+                subItems: [
+                    {
+                        id: 9,
+                        label: 'Evaluación Anual',
+                        link: '/negocio/evaluacion-anual',
+                        parentId: 8
+                    },
+                    {
+                        id: 10,
+                        label: 'Evaluación Anual PT',
+                        link: '/negocio/evaluacion-anual-plan-trabajo',
+                        parentId: 8
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        id: 11,
+        label: 'Reporte',
+        icon: 'bx-wrench',
+        subItems: [
+            {
+                id: 5,
+                label: 'Convenio',
+                link: '/reporte/convenio',
+                parentId: 4
+            }
         ]
     },
 ];

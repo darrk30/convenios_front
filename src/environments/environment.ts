@@ -6,7 +6,7 @@ export const environment = {
 	production: false,
 	longNameSystem: 'CONVENIOS',
 	shortNameSystem: 'ITP - CONVENIOS - OGTI',
-	urlBackend: 'http://localhost:5185',
+	urlBackend: 'http://localhost:5278',
 	siteKeyCaptcha: "6Ldp8_spAAAAAP3ztV39YBUbWJ7MposM1RFLhVi2",
 	tamanioArchivoMB: 5,
   	urlSso: "https://sso-dev.itp.gob.pe:8080/",

@@ -10,6 +10,9 @@ const dtOptionsData = {
     autoWidth: true,
     pageLength: 10,
     processing: true,
+    //scrollY: '300px',
+    //scrollX: true,
+    responsive: true,
     dom: 'Blfrtip',
     buttons: [
         //{ text: 'Columnas',extend: 'colvis', className: 'btn btn-secondary mb-3'},

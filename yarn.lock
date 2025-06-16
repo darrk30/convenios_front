@@ -2778,6 +2778,21 @@
     "@types/d3-transition" "*"
     "@types/d3-zoom" "*"
 
+"@types/datatables.net-buttons@^1.4.7":
+  version "1.4.10"
+  resolved "https://registry.npmjs.org/@types/datatables.net-buttons/-/datatables.net-buttons-1.4.10.tgz"
+  integrity sha512-pn5htL16k3k938GyEKKwzUMiTFXxywVoSk/YakUrQQYK1NVKBOcSQ1w3ievixuvhiYGYuZZbaTJAn7Vu0VfHfg==
+  dependencies:
+    "@types/datatables.net" "*"
+    "@types/jquery" "*"
+
+"@types/datatables.net@*", "@types/datatables.net@^1.10.23":
+  version "1.10.28"
+  resolved "https://registry.npmjs.org/@types/datatables.net/-/datatables.net-1.10.28.tgz"
+  integrity sha512-Y6SZZCdJt7vXROaTBc/ifwhAqSBg7V0urM+RqZt3Tj9JN1U8KSgQ7EKpFG88g/j4MVrlYDfSH+yqSnK0MaIwMw==
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/estree@^1.0.5", "@types/estree@1.0.5":
   version "1.0.5"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-1.0.5.tgz"
@@ -2842,7 +2857,7 @@
   dependencies:
     "@types/jasmine" "*"
 
-"@types/jquery@^3.5.32":
+"@types/jquery@*", "@types/jquery@^3.5.14":
   version "3.5.32"
   resolved "https://registry.npmjs.org/@types/jquery/-/jquery-3.5.32.tgz"
   integrity sha512-b9Xbf4CkMqS02YH8zACqN1xzdxc3cO735Qe5AbSUFmyOiaWAbcpqh9Wna+Uk0vgACvoQHpWDg2rGdHkYPLmCiQ==
@@ -3242,12 +3257,10 @@ angular-calendar@^0.31.1:
     positioning "^2.0.1"
     tslib "^2.4.1"
 
-angular-datatables@^19.0.0:
-  version "19.0.0"
-  resolved "https://registry.npmjs.org/angular-datatables/-/angular-datatables-19.0.0.tgz"
-  integrity sha512-cxG4/1ew1lqwEkZ7qhxH1zkAh/MP1vwQQrMdxQTtcWJtgi0na83Ds46Pe41XKIuq3aEEuE0O0oCV1ANTAD4d1w==
-  dependencies:
-    tslib "^2.3.0"
+angular-datatables@^16.0.0:
+  version "16.0.1"
+  resolved "https://registry.npmjs.org/angular-datatables/-/angular-datatables-16.0.1.tgz"
+  integrity sha512-RXDQQqIWAyFtpyGI800heT/sHho2+3vxIeNN+XxS5VmezZiQSjeeBBo+Lp2CpA3XD7q3ro08Rhks/i2FvbF7PA==
 
 angular-draggable-droppable@^8.0.0:
   version "8.0.0"
@@ -4413,6 +4426,46 @@ d3@^7.0.0:
     d3-timer "3"
     d3-transition "3"
     d3-zoom "3"
+
+datatables.net-bs5@^1.11.3:
+  version "1.13.11"
+  resolved "https://registry.npmjs.org/datatables.net-bs5/-/datatables.net-bs5-1.13.11.tgz"
+  integrity sha512-NQO15TjXo4xvZ0jReC4Uf86ezbQzPQPdaN2YncrCPhzQ6fx+2WD7DUq4ur0HbAcYHo94/M+MtD5Ch29To7Rj3Q==
+  dependencies:
+    datatables.net "1.13.11"
+    jquery "1.8 - 4"
+
+datatables.net-buttons-dt@^2.2.2:
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/datatables.net-buttons-dt/-/datatables.net-buttons-dt-2.4.3.tgz"
+  integrity sha512-yVQUzZscitNEKguUiDIuagWJroa3IuA8bxIJLvO75HyVC+H2q6ISGs8kXk7i4tLAhnqJvb6AsI6zSOsqJ0OS5g==
+  dependencies:
+    datatables.net-buttons "2.4.3"
+    datatables.net-dt "^1.13.0"
+    jquery ">=1.7"
+
+datatables.net-buttons@^2.2.2, datatables.net-buttons@2.4.3:
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/datatables.net-buttons/-/datatables.net-buttons-2.4.3.tgz"
+  integrity sha512-xoHD6I2kxnU/CEp97Ar0lSnAL1siucQ/5Q/otGWWfWE2VN0o4n5C2h2Ot/ZCS8kxbEHBGd873Bc2xPdJH87yOw==
+  dependencies:
+    datatables.net "^1.13.0"
+    jquery ">=1.7"
+
+datatables.net-dt@^1.11.3, datatables.net-dt@^1.13.0:
+  version "1.13.11"
+  resolved "https://registry.npmjs.org/datatables.net-dt/-/datatables.net-dt-1.13.11.tgz"
+  integrity sha512-4GpS4OFLwIMfhb5UdJh6bEnh0E52jIJOlx7KLKs1pSce/xpHjvcmucbUWNaEndQIpHXtIxmVPoqcDB0ZbiVB+A==
+  dependencies:
+    datatables.net "1.13.11"
+    jquery "1.8 - 4"
+
+datatables.net@^1.11.3, datatables.net@^1.13.0, datatables.net@1.13.11:
+  version "1.13.11"
+  resolved "https://registry.npmjs.org/datatables.net/-/datatables.net-1.13.11.tgz"
+  integrity sha512-AE6RkMXziRaqzPcu/pl3SJXeRa6fmXQG/fVjuRESujvkzqDCYEeKTTpPMuVJSGYJpPi32WGSphVNNY1G4nSN/g==
+  dependencies:
+    jquery "1.8 - 4"
 
 date-format@^4.0.14:
   version "4.0.14"
@@ -5997,7 +6050,7 @@ jpeg-exif@^1.1.4:
   resolved "https://registry.npmjs.org/jpeg-exif/-/jpeg-exif-1.1.4.tgz"
   integrity sha512-a+bKEcCjtuW5WTdgeXFzswSrdqi0jk4XlEtZlx5A94wCoBpFjfFTbo/Tra5SpNCl/YFZPvcV1dJc+TAYeg6ROQ==
 
-jquery@^3.7.1:
+jquery@^3.7.1, jquery@>=1.7, "jquery@1.8 - 4":
   version "3.7.1"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==

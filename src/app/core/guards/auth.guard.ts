@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
             if (helper.isTokenExpired(token)) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('currentUser');
-                this.router.navigate(['/auth/login']);
+                this.router.navigate(['/auth/sso']);
                 return false;
             }
         }
@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
             return true;
         }
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
+        this.router.navigate(['/auth/sso'], { queryParams: { returnUrl: state.url } });
         return false;
     }
 }

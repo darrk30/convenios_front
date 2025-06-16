@@ -22,6 +22,10 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { KeycloakService } from './core/services/Keycloak.service';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEs);
 
 export function createTranslateLoader(http: HttpClient): any {
   	return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -42,10 +46,10 @@ export const appConfig: ApplicationConfig = {
 		// ]),
 		KeycloakService,
 		{
-		provide: APP_INITIALIZER,
-		useFactory: initializeKeycloak,
-		deps: [KeycloakService],
-		multi: true
+			provide: APP_INITIALIZER,
+			useFactory: initializeKeycloak,
+			deps: [KeycloakService],
+			multi: true
 		},
 		provideHttpClient(withInterceptorsFromDi()),
 		importProvidersFrom(
@@ -56,6 +60,7 @@ export const appConfig: ApplicationConfig = {
 				deps: [HttpClient]
 				}
 			}),
+			ModalModule.forRoot()
 		),
 		provideAnimations(),
 		provideToastr(),

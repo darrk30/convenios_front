@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page404',
@@ -12,10 +13,13 @@ import { Component, OnInit } from '@angular/core';
  * PAges-404 component
  */
 export class Page404Component implements OnInit {
+	private router = inject(Router);
+	constructor() { }
 
-  constructor() { }
+	ngOnInit(): void {
+	}
 
-  ngOnInit(): void {
-  }
-
+	regresar(){
+		this.router.navigate([`/`]);
+	}
 }

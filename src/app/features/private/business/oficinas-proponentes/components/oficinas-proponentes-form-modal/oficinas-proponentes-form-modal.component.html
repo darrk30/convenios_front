@@ -1,0 +1,90 @@
+<form (ngSubmit)="grabar()" [formGroup]="formData">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Oficina Proponente Ejecutor:</label>
+                <!-- <select class="form-control form-select" formControlName="ideOficina" [ngClass]="{'is-invalid': submitted && formData.get('ideOficina').errors}">
+                    <option value=null>Seleccionar</option>
+                    @for(oficina of oficinasStateService.items();track $index){
+                        <option value="{{oficina.ideOficina}}">{{oficina.txtOficina}}</option>
+                    }
+                </select> -->
+
+                <ng-select
+                    [items]="oficinasStateService.items()"
+                    bindLabel="txtOficina"
+                    bindValue="ideOficina"
+                    placeholder="Seleccionar Oficina Proponente Ejecutor"
+                    formControlName="ideOficina"
+                    [ngClass]="{'is-invalid': submitted && formData.get('ideOficina')?.invalid}"
+                    [searchable]="true"
+                    [clearable]="false">
+                </ng-select>
+
+
+                <div *ngIf="submitted && formData.get('ideOficina').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('ideOficina').errors.required">Oficina Proponente Ejecutor es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Aporte Monetario en Soles:</label>
+                <input class="form-control" placeholder="Ingrese el Aporte Monetario en Soles" type="text" autocomplete="off" formControlName="numAporteMonetario" [ngClass]="{'is-invalid': submitted && formData.get('numAporteMonetario').errors}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 10) this.value = this.value.slice(0, 10);" maxlength="10"/>
+                <div *ngIf="submitted && formData.get('numAporteMonetario').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('numAporteMonetario').errors.required">Aporte Monetario en Soles es requerido.</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Aporte No Monetario en Soles:</label>
+                <input class="form-control" placeholder="Ingrese el Aporte No Monetario en Soles" type="text" autocomplete="off" formControlName="numAporteNoMonetario" [ngClass]="{'is-invalid': submitted && formData.get('numAporteNoMonetario').errors}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); if(this.value.length > 10) this.value = this.value.slice(0, 10);" maxlength="10"/>
+                <div *ngIf="submitted && formData.get('numAporteNoMonetario').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('numAporteNoMonetario').errors.required">Aporte No Monetario en Soles es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Coordinador 1 (Titular):</label>
+                <select class="form-control form-select" formControlName="ideCoordinadorTitular" [ngClass]="{'is-invalid': submitted && formData.get('ideCoordinadorTitular').errors}">
+                    <option value=null>Seleccionar</option>
+                    @for(persona of personasStateService.items();track $index){
+                        <option value="{{persona.idePersona}}">{{persona.txtNombres}} {{persona.txtApellidos}}</option>
+                    }
+                </select>
+                <div *ngIf="submitted && formData.get('ideCoordinadorTitular').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('ideCoordinadorTitular').errors.required">Coordinador 1 (Titular) es requerido.</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Coordinador 2 (Alterno):</label>
+                <select class="form-control form-select" formControlName="ideCoordinadorAlterno" [ngClass]="{'is-invalid': submitted && formData.get('ideCoordinadorAlterno').errors}">
+                    <option value=null>Seleccionar</option>
+                    @for(persona of personasStateService.items();track $index){
+                        <option value="{{persona.idePersona}}">{{persona.txtNombres}} {{persona.txtApellidos}}</option>
+                    }
+                </select>
+                <div *ngIf="submitted && formData.get('ideCoordinadorAlterno').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('ideCoordinadorAlterno').errors.required">Coordinador 2 (Alterno) es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row" *ngIf="flagAccion != 3">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form>

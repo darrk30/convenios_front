@@ -1,0 +1,76 @@
+<form (ngSubmit)="grabar()" [formGroup]="formData">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Institución</label>
+                <select class="form-control form-select" formControlName="ideContraparte" [ngClass]="{'is-invalid': submitted && formData.get('ideContraparte').errors}">
+                    <option value=null>Seleccionar</option>
+                    @for(contraparte of contrapartesStateService.items();track $index){
+                        <option value="{{contraparte.ideContraparte}}">{{contraparte.institucion?.txtInstitucion}}</option>
+                    }
+                </select>
+                <div *ngIf="submitted && formData.get('ideContraparte').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('ideContraparte').errors.required">Institución es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Tipo Coordinador</label>
+                <select class="form-control form-select" formControlName="ideTipoCoordinador" [ngClass]="{'is-invalid': submitted && formData.get('ideTipoCoordinador').errors}">
+                    <option value=null>Seleccionar</option>
+                    @for(tipoCoordinador of tiposCoordinadoresStateService.items();track $index){
+                        <option value="{{tipoCoordinador.ideTipoCoordinador}}">{{tipoCoordinador.txtTipoCoordinador}}</option>
+                    }
+                </select>
+                <div *ngIf="submitted && formData.get('ideTipoCoordinador').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('ideTipoCoordinador').errors.required">Tipo Coordinador es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Ingrese Nombre" autocomplete="off" formControlName="txtNombres" [ngClass]="{'is-invalid': submitted && formData.get('txtNombres').errors}">
+                <div *ngIf="submitted && formData.get('txtNombres').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtNombres').errors.required">Nombre es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Cargo</label>
+                <input type="text" class="form-control" placeholder="Ingrese Cargo" autocomplete="off" formControlName="txtCargo" [ngClass]="{'is-invalid': submitted && formData.get('txtCargo').errors}">
+                <div *ngIf="submitted && formData.get('txtCargo').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtCargo').errors.required">Cargo es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Correo electrónico</label>
+                <input type="text" class="form-control" placeholder="Ingrese Correo electrónico" autocomplete="off" formControlName="txtCorreoElectronico" [ngClass]="{'is-invalid': submitted && formData.get('txtCorreoElectronico').errors}">
+                <div *ngIf="submitted && formData.get('txtCorreoElectronico').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtCorreoElectronico').errors.required">Correo electrónico es requerido.</span>
+                    <span *ngIf="formData.get('txtCorreoElectronico').errors.email">La información ingresada no es un formato de Correo electrónico.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row" *ngIf="flagAccion != 3">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form>

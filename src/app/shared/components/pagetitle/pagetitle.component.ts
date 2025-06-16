@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-title',
@@ -9,13 +10,28 @@ import { Component, OnInit, Input } from '@angular/core';
   imports:[CommonModule]
 })
 export class PagetitleComponent implements OnInit {
+	private router = inject(Router);
 
-  @Input() breadcrumbItems;
-  @Input() title: string;
+	@Input() breadcrumbItems;
+	@Input() title: string;
+	@Input() flgBotonRegresar: boolean = false;
+	@Input() idePagina:number;
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+
+	}
+
+	regresar(){
+		if(this.idePagina == 1){
+			this.router.navigate([`negocio/convenio`]);
+		}else if(this.idePagina == 3){
+			this.router.navigate([`reporte/convenio`]);
+		}else{
+			this.router.navigate([`dashboard`]);
+		}
+		
+	}
 
 }

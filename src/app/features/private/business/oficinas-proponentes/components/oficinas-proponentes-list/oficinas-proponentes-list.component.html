@@ -1,0 +1,64 @@
+
+<div class="card ">
+    <div class="card-header">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="float-start">
+                    <h3>Lista de Oficinas Proponente Ejecutor</h3> 
+                </div>
+                <div class="float-end" *ngIf="flagAction != 3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="crear(modalEntidad)">Agregar</button>
+                </div> 
+            </div><!-- end col-->
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 25%;">Oficina Proponente Ejecutor</th>
+                            <th scope="col" style="width: 20%;">Coordinador 1</th>
+                            <th scope="col" style="width: 20%;">Coordinador 2</th>
+                            <th scope="col" style="width: 15%;">Aporte Monetario</th>
+                            <th scope="col" style="width: 15%;">Aporte No Monetario</th>
+                            <th scope="col" style="width: 5%;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(oficinaProponente of oficinasProponentesStateService.items();track $index){
+                        <tr>
+                            <td>{{oficinaProponente.organoEjecutor?.txtCodigoOficina}}</td>
+                            <td>{{oficinaProponente.personaTitular?.txtNombres}} {{oficinaProponente.personaTitular?.txtApellidos}}</td>
+                            <td>{{oficinaProponente.personaAlterno?.txtNombres}} {{oficinaProponente.personaAlterno?.txtApellidos}}</td>
+                            <td>{{oficinaProponente.numAporteMonetario}}</td>
+                            <td>{{oficinaProponente.numAporteNoMonetario}}</td>
+                            <td>
+                                <div  class="dropdown" dropdown placement="bottom-right">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle aria-expanded="false">
+                                        Acciones <i class="mdi mdi-chevron-down font-size-14"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                                        <li *ngIf="flagAction != 3"><a href="javascript: void(0);" class="dropdown-item" (click)="editar(modalEntidad,oficinaProponente)"><i class="fas fa-pencil-alt text-success me-1"></i>Editar</a></li>
+                                        <li><a href="javascript: void(0);" class="dropdown-item" (click)="ver(modalEntidad,oficinaProponente)"><i class="fas fa-eye text-success me-1"></i>ver</a></li>
+                                        <li *ngIf="flagAction != 3"><a href="javascript: void(0);" class="dropdown-item" (click)="eliminar(oficinaProponente.ideOficinaProponente)"><i class="fas fa-trash-alt text-danger me-1"></i>Eliminar</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalEntidad role="document" let-modal>
+	<div class="modal-header">
+        <h5 class="modal-title mt-0">{{tituloModal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"></button>
+	</div>
+	<div class="modal-body">
+		<app-oficinas-proponentes-form-modal [modalRef]="modalRef" [oficinaProponente]="oficinaProponente" [flagAccion]="flagAccion" (onSave)="listar()"></app-oficinas-proponentes-form-modal>
+	</div>
+</ng-template>

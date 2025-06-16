@@ -1,0 +1,120 @@
+<form (ngSubmit)="grabar()" [formGroup]="formData">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Convenio</label>
+
+                <ng-select
+                    [items]="conveniosStateService.items()"
+                    bindLabel="txtConvenio"
+                    bindValue="ideConvenio"
+                    placeholder="Seleccionar Convenio"
+                    formControlName="ideConvenio"
+                    [ngClass]="{'is-invalid': submitted && formData.get('ideConvenio')?.invalid}"
+                    [searchable]="true"
+                    [clearable]="false">
+                </ng-select>
+
+                <div *ngIf="submitted && formData.get('ideConvenio').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('ideConvenio').errors.required">Convenio es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Actividad Ejecutada:</label>
+                <textarea class="form-control" placeholder="Ingrese Actividad Ejecutada" autocomplete="off" formControlName="txtActividadEjecutada" [ngClass]="{'is-invalid': submitted && formData.get('txtActividadEjecutada').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtActividadEjecutada').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtActividadEjecutada').errors.required">Actividad Ejecutada es requerido.</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Actividad Programada:</label>
+                <textarea class="form-control" placeholder="Ingrese Actividad Programada" autocomplete="off" formControlName="txtActividadProgramada" [ngClass]="{'is-invalid': submitted && formData.get('txtActividadProgramada').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtActividadProgramada').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtActividadProgramada').errors.required">Actividad Programada es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Problema Presentado:</label>
+                <textarea class="form-control" placeholder="Ingrese Problema Presentado" autocomplete="off" formControlName="txtProblemaPresentado" [ngClass]="{'is-invalid': submitted && formData.get('txtProblemaPresentado').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtProblemaPresentado').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtProblemaPresentado').errors.required">Problema Presentado es requerido.</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Principal logro:</label>
+                <textarea class="form-control" placeholder="Ingrese Principal logro" autocomplete="off" formControlName="txtPrincipalLogro" [ngClass]="{'is-invalid': submitted && formData.get('txtPrincipalLogro').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtPrincipalLogro').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtPrincipalLogro').errors.required">Principal logro es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Lección aprendida:</label>
+                <textarea class="form-control" placeholder="Ingrese Lección aprendida" autocomplete="off" formControlName="txtLeccionAprendida" [ngClass]="{'is-invalid': submitted && formData.get('txtLeccionAprendida').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtLeccionAprendida').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtLeccionAprendida').errors.required">Lección aprendida es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">¿Consideras necesario la extensión o renovación del convenio marco y la realización de nuevas actividades espécificas ?:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formControlName="bitExtension" [ngClass]="{'is-invalid': submitted && formData.get('bitExtension').errors}" checked>
+                    
+                    <div *ngIf="submitted && formData.get('bitExtension').errors" class="invalid-feedback">
+                        <span *ngIf="formData.get('bitExtension').errors.required">El campo es requerido.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Fecha evaluación:</label>
+                <input type="date" class="form-control" placeholder="Ingrese Fecha evaluación" autocomplete="off" formControlName="fecEvaluacion" [ngClass]="{'is-invalid': submitted && formData.get('fecEvaluacion').errors}" onclick="this.showPicker()">
+                <div *ngIf="submitted && formData.get('fecEvaluacion').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('fecEvaluacion').errors.required">Fecha evaluación es requerido.</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">¿Qué nuevas actividades específicas estarian interesados en realizar con dicha institución?:</label>
+                <textarea class="form-control" placeholder="Ingrese Actividad específica" autocomplete="off" formControlName="txtActividadEspecifica" [ngClass]="{'is-invalid': submitted && formData.get('txtActividadEspecifica').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtActividadEspecifica').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtActividadEspecifica').errors.required">Actividad específica es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form>
