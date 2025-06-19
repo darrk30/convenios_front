@@ -25,7 +25,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Modalidad de Convenio:</label>
                                                 <select class="form-control form-select" formControlName="ideModalidadConvenio" [ngClass]="{'is-invalid': submitted && formData.get('ideModalidadConvenio').errors}">
@@ -36,6 +36,21 @@
                                                 </select>
                                                 <div *ngIf="submitted && formData.get('ideModalidadConvenio').errors" class="invalid-feedback">
                                                     <span *ngIf="formData.get('ideModalidadConvenio').errors.required">Modalidad de Convenio es requerido.</span>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label">Tipo de Convenio:</label>
+                                                <select class="form-control form-select" formControlName="ideTipoConvenio" [ngClass]="{'is-invalid': submitted && formData.get('ideTipoConvenio').errors}">
+                                                    <option [ngValue]="null">Seleccionar</option>
+                                                    @for(tipoConvenio of tiposConveniosStateService.items();track $index){
+                                                        <option value="{{tipoConvenio.ideTipoConvenio}}">{{tipoConvenio.txtTipoConvenio}}</option>
+                                                    }
+                                                </select>
+                                                <div *ngIf="submitted && formData.get('ideTipoConvenio').errors" class="invalid-feedback">
+                                                    <span *ngIf="formData.get('ideTipoConvenio  ').errors.required">Tipo de Convenio es requerido.</span>
                                                 </div>
                                             </div>
                                         </div>

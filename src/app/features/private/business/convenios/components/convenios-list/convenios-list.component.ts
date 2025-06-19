@@ -21,6 +21,7 @@ import { ConvenioStore } from '../../services/convenios.store';
 import { saveAs } from "file-saver";
 import { PagetitleComponent } from 'src/app/shared/components/pagetitle/pagetitle.component';
 import { ArchivoStore } from '../../../archivos/services/archivo.store';
+import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
 
 
 @Component({
@@ -36,19 +37,13 @@ export class ConveniosListComponent {
 	private formBuilder = inject(FormBuilder);
 	public conveniosStateService = inject(ConveniosStateService);
 	public estadosConveniosStateService = inject(EstadosConveniosStateService);
+	public tiposConveniosStateService = inject(TiposConveniosStateService);
 	public modalidadesConveniosStateService = inject(ModalidadesConveniosStateService);
 	public paisesStateService = inject(PaisesStateService);
 	public oficinasStateService = inject(OficinasStateService);
 	public institucionesStateService = inject(InstitucionesStateService);
 	public convenioStore = inject(ConvenioStore);
 	public archivoStore = inject(ArchivoStore);
-
-	@ViewChild('ideEstadoConvenio') ideEstadoConvenio: ElementRef;
-	@ViewChild('ideModalidadConvenio') ideModalidadConvenio: ElementRef;
-	@ViewChild('idePais') idePais: ElementRef;
-	@ViewChild('ideContraparte') ideContraparte: NgSelectComponent;
-	@ViewChild('ideOrganoEjecutor') ideOrganoEjecutor: ElementRef;
-
 
 	@ViewChild(DataTableDirective, {static: false}) dtElement: DataTableDirective;
 	dtTrigger: Subject<void> = new Subject<any>();
@@ -58,10 +53,12 @@ export class ConveniosListComponent {
 	originalConvenios: Convenio[] = [];
 	conveniosFiltrados: Convenio[] = [];
 	breadCrumbItems: Array<{}>;
+	aniosSuscripcion:any;
 
 	formData: FormGroup = this.formBuilder.group({
 		ideEstadoConvenio:[""],
 		ideModalidadConvenio:[""],
+		ideTipoConvenio:[""],
 		ideAnio:[""],
 		idePais:[""],
 		ideContraparte:[],
@@ -74,6 +71,7 @@ export class ConveniosListComponent {
 		this.conveniosStateService.clearState();
 		this.listar();
 		this.listarEstadosConvenios();
+		this.listarTiposConvenios();
 		this.listarModalidadesConvenios();
 		this.listarPaises();
 		this.listarOficinas();
@@ -82,6 +80,10 @@ export class ConveniosListComponent {
 
 	listarEstadosConvenios(){
 		this.estadosConveniosStateService.loadItems();
+	}
+
+	listarTiposConvenios(){
+		this.tiposConveniosStateService.loadItems();
 	}
 
 	listarModalidadesConvenios(){
@@ -101,10 +103,19 @@ export class ConveniosListComponent {
 	}
 
 	listar(){
+		this.spinner.show();
 		this.conveniosStateService.loadItems().subscribe(() => {
 			this.originalConvenios = this.conveniosStateService.items();
 			this.conveniosFiltrados = [...this.originalConvenios];
+			this.aniosSuscripcion = Array.from(
+				new Set(
+					this.originalConvenios
+						.filter(c => c.fecSuscripcion) // evita nulos
+						.map(c => new Date(c.fecSuscripcion!).getFullYear())
+				)
+			).sort((a, b) => b - a);
 			this.rerender();
+			this.spinner.hide();
 		});
 	}
 
@@ -157,29 +168,43 @@ export class ConveniosListComponent {
 	buscar(){
 		this.conveniosFiltrados = this.originalConvenios.filter(c => {
 			const estadoSeleccionado = +this.formData.get('ideEstadoConvenio').value;
-			const modalidadSeleccionada = +this.formData.get('ideModalidadConvenio').value;
-			const paisSeleccionado = +this.formData.get('idePais').value;
-			const contraparteSeleccionado = +this.formData.get('ideContraparte').value;
-			const organoEjecutorSeleccionado = +this.formData.get('ideOrganoEjecutor').value;
+
+			const aniosSeleccionados: number[] = this.formData.get('ideAnio')?.value || [];
+			
+			const tiposConveniosSeleccionadas: number[] = this.formData.get('ideTipoConvenio')?.value || [];
+
+			const modalidadesSeleccionadas: number[] = this.formData.get('ideModalidadConvenio')?.value || [];
+
+			const paisesSeleccionados: number[] = this.formData.get('idePais')?.value || [];
+			
+			const contrapartesSeleccionadas: number[] = this.formData.get('ideContraparte')?.value || [];
+
+			const organosEjecutoresSeleccionados: number[] = this.formData.get('ideOrganoEjecutor')?.value || [];
 
 			const coincideEstadoConvenio = !estadoSeleccionado || c.estadoConvenio?.ideEstadoConvenio === estadoSeleccionado;
-			const coincideModalidadConvenio = !modalidadSeleccionada || c.modalidadConvenio?.ideModalidadConvenio === modalidadSeleccionada;
+			
+			
 
-			const coincideOrganoEjecutorConvenio = !organoEjecutorSeleccionado || 
-			(
-				c.oficinasProponentes?.some(cp => cp.ideOficina === organoEjecutorSeleccionado)
-			);
+			const coincideModalidadConvenio = modalidadesSeleccionadas.length === 0 ||
+				c.modalidadConvenio && modalidadesSeleccionadas.includes(c.modalidadConvenio.ideModalidadConvenio);
+
+			const coincideTipoConvenio = tiposConveniosSeleccionadas.length === 0 ||
+				c.tipoConvenio && tiposConveniosSeleccionadas.includes(c.tipoConvenio.ideTipoConvenio);
+
+			const coincideOrganoEjecutorConvenio = organosEjecutoresSeleccionados.length === 0 || 
+				c.oficinasProponentes?.some(cp => organosEjecutoresSeleccionados.includes(cp.ideOficina));
 
 
-			const coincidePais = !paisSeleccionado || (
-				c.contrapartes?.some(cp => cp.institucion?.pais?.idePais === paisSeleccionado)
-			);
+			const coincidePais = paisesSeleccionados.length === 0 ||
+				c.contrapartes?.some(cp => paisesSeleccionados.includes(cp.institucion?.pais?.idePais));
 
-			const coincideContraparte = !contraparteSeleccionado || (
-				c.contrapartes?.some(cp => cp.institucion.ideInstitucion === contraparteSeleccionado)
-			);
+			const coincideContraparte = contrapartesSeleccionadas.length === 0 || 
+					c.contrapartes?.some(cp => contrapartesSeleccionadas.includes(cp.institucion?.ideInstitucion));
 
-			return coincideEstadoConvenio && coincideModalidadConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio;
+			const coincideAnio = aniosSeleccionados.length === 0 || 
+    			(c.fecSuscripcion && aniosSeleccionados.includes(new Date(c.fecSuscripcion).getFullYear()));
+
+			return coincideEstadoConvenio && coincideTipoConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio && coincideAnio;
 		});
 
 		this.rerender();
@@ -229,6 +254,48 @@ export class ConveniosListComponent {
 	
 	descargarExcelResumen(){
 		this.convenioStore.descargarExcelResumen().subscribe({
+			next: (response: Blob) => {
+				const contentType = response.type;
+
+				// Determinar la extensión del archivo basada en el tipo MIME
+				let extension = '';
+				switch (contentType) {
+					case 'application/pdf':
+					extension = '.pdf';
+					break;
+					case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+					extension = '.xlsx';
+					break;
+					case 'application/vnd.ms-excel':
+					extension = '.xls';
+					break;
+					case 'text/plain':
+					extension = '.txt';
+					break;
+					case 'application/zip':
+					extension = '.zip';
+					break;
+					default:
+					extension = ''; // Extensión por defecto si no se reconoce el tipo MIME
+				}
+
+				// Crear un archivo Blob a partir de la respuesta
+				const blob = new Blob([response], { type: contentType });
+
+				// Generar un nombre de archivo dinámico
+				const fileName = `CONVENIOS_RESUMEN.${extension}`;
+
+				// Usar file-saver para descargar el archivo
+				saveAs(blob, fileName);
+			},
+			error: (error) => {
+				console.error('Error al descargar el PDF', error);
+			}
+		});
+	}
+
+	descargarPdfResumen(){
+		this.convenioStore.descargarPdfResumen().subscribe({
 			next: (response: Blob) => {
 				const contentType = response.type;
 

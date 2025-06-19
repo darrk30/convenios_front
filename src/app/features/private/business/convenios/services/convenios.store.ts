@@ -15,6 +15,10 @@ export class ConvenioStore {
     }
 
     descargarExcelResumen(): Observable<Blob> {
-        return this.conveniosRepository.descargarExceResumen();
+        return this.conveniosRepository.descargarExcelResumen();
+    }
+
+    descargarPdfResumen(): Observable<Blob> {
+        return this.conveniosRepository.descargarPdfResumen();
     }
 }

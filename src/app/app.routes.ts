@@ -14,7 +14,7 @@ export const routes: Routes = [
         path: "",
         component: LayoutComponent,
         loadChildren: () =>
-            import("./pages/pages.module").then((m) => m.PagesModule),
+            import("./features/private/reporting/reporting.module").then((m) => m.ReportingModule),
         canActivate: [KeycloakSsoGuard],
     },
     {

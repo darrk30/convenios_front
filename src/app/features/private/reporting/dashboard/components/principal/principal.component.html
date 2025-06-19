@@ -1,0 +1,105 @@
+
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card h-100 d-flex flex-column">
+                <div class="card-body flex-grow-1">
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <h4 class="card-title">Gráfico</h4>
+                        </div>
+                    </div>
+                    <!-- <div class="row mb-2">
+                        <form [formGroup]="formData">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Año</label>
+                                    <select class="form-control form-select" >
+                                        <option [ngValue]="null">Seleccionar</option>
+                                        @for(anio of dashboardsStateService.listaAnios();track $index){
+                                            <option value="{{anio}}">{{anio}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div> -->
+
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div class="card mini-stats-wid text-black" style="background-color: #cecece;" >
+                                <div class="card-body text-black">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p >Convenios Vigentes</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1 text-center">
+                                            <h1 class="mb-0">{{dashboardsStateService.totalVigentes()|number}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top py-3">
+                                    <p class="mb-0"> <span class=" badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> </span> Avance</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-md-6">
+                            <div class="card mini-stats-wid text-black" style="background-color: #cecece;" >
+                                <div class="card-body text-black">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p >Total Convenio</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1 text-center">
+                                            <h1 class="mb-0">{{dashboardsStateService.totalConvenios()|number}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top py-3">
+                                    <p class="mb-0"> <span class="badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> </span> Avance</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-sm-flex flex-wrap">
+                                        <h4 class="card-title mb-4">Cantidad de convenios suscritos por año</h4>
+                                    </div>
+                                    <apx-chart
+                                        *ngIf="conveniosBarChart().series.length > 0"
+                                        [series]="conveniosBarChart().series"
+                                        [chart]="conveniosBarChart().chart"
+                                        [xaxis]="conveniosBarChart().xaxis"
+                                        [plotOptions]="conveniosBarChart().plotOptions"
+                                        [dataLabels]="conveniosBarChart().dataLabels"
+                                        [legend]="conveniosBarChart().legend"
+                                        [stroke]="conveniosBarChart().stroke"
+                                        [fill]="conveniosBarChart().fill"
+                                        [colors]="conveniosBarChart().colors"
+                                        class="apex-charts"
+                                        dir="ltr">
+                                    </apx-chart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PrincipalComponent } from './dashboard/components/principal/principal.component';
 
 const routes: Routes = [
-  { path: 'convenio', loadChildren: () => import('./convenios/convenios.module').then(m => m.ConveniosModule) },
+	{
+		path: "",
+		component: PrincipalComponent
+	},
+  	{ path: 'convenio', loadChildren: () => import('./convenios/convenios.module').then(m => m.ConveniosModule) },
 ];
 
 

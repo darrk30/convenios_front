@@ -23,6 +23,7 @@ import { ConvenioStore } from '../../services/convenios.store';
 import { saveAs } from "file-saver";
 import { OficinasProponentesListComponent } from '../../../oficinas-proponentes/components/oficinas-proponentes-list/oficinas-proponentes-list.component';
 import { fechasValidator } from '../../validators/fechas.validator';
+import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
 
 @Component({
 	selector: 'app-convenios-form',
@@ -37,6 +38,7 @@ export class ConveniosFormComponent implements OnInit {
 	private toastr = inject(ToastrService);
 	private spinner = inject(NgxSpinnerService);
 	public conveniosStateService = inject(ConveniosStateService);
+	public tiposConveniosStateService = inject(TiposConveniosStateService);
 	public modalidadesConveniosStateService = inject(ModalidadesConveniosStateService);
 	public oficinasStateService = inject(OficinasStateService);
 	public personasStateService = inject(PersonasStateService);
@@ -49,7 +51,8 @@ export class ConveniosFormComponent implements OnInit {
 
 	formData: FormGroup = this.formBuilder.group({
 		ideConvenio:[],
-		ideModalidadConvenio:[,[Validators.required]],
+		ideModalidadConvenio:[],
+		ideTipoConvenio:[,[Validators.required]],
 		txtConvenio:[,[Validators.required]],
 		txtObjetivoConvenio:[],
 		fecSuscripcion:[],
@@ -124,6 +127,7 @@ export class ConveniosFormComponent implements OnInit {
 
 		this.breadCrumbItems = [{ label: this.titleComponent }];
 		this.conveniosStateService.clearState();
+		this.listarTiposConvenios();
 		this.listarModalidadesConvenios();
 		//this.listarOficinas();
 		this.listarEstadosConvenios();
@@ -138,6 +142,10 @@ export class ConveniosFormComponent implements OnInit {
 			this.formData.disable();
 			this.idePagina = 3;
 		}
+	}
+
+	listarTiposConvenios(){
+		this.tiposConveniosStateService.loadItems();
 	}
 
 	listarModalidadesConvenios(){

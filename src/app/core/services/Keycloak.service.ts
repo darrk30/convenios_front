@@ -196,56 +196,6 @@ export class KeycloakService {
         return expirationDate < new Date();
     }
     
-    // Establece un temporizador para cerrar sesión cuando el token expire
-    // startTokenExpirationTimer() {
-    //     const token:string = this.token.getToken()??"null";
-    //     const decodedToken: any = this.decodeToken(token);
-    //     const expirationDate = new Date(decodedToken.exp * 1000);
-    //     const expirationDuration = expirationDate.getTime() - new Date().getTime();
-        
-    //     //console.log('Token expirará en:', expirationDuration / 1000, 'segundos');
-    //     if (this.expirationTimer) {
-    //         clearTimeout(this.expirationTimer);
-    //     }
-        
-    //     // Si el temporizador es menor o igual a cero, el token ya expiró
-    //     if (expirationDuration <= 0) {
-    //         this.logout();
-    //         return;
-    //     }
-        
-    //     this.expirationTimer = setTimeout(() => {
-    //         //console.log('Token ha expirado. Cerrando sesión.');
-    //         this.logout();
-    //     }, expirationDuration);
-    // }
-
-    // startTokenRefresh(): void {
-    //     if (this.refreshStarted) return;
-    //     this.refreshStarted = true;
-
-    //     setInterval(() => {
-    //         this.getKeycloakInstance().updateToken(60).then(refreshed => {
-    //             if (refreshed) {
-    //                 const newToken = this.getKeycloakInstance().token??'null';
-    //                 const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-                    
-    //                 if (user) {
-    //                     user.token = newToken;
-    //                     localStorage.setItem('currentUser', JSON.stringify(user));
-    //                     localStorage.setItem('token', newToken); // también si usas esto
-    //                     console.log('🔄 Token renovado y actualizado en localStorage');
-    //                 }
-    //             } else {
-    //                 console.log('ℹ️ Token sigue vigente');
-    //             }
-    //         }).catch(() => {
-    //             console.warn('⚠️ No se pudo renovar el token. Cerrando sesión...');
-    //             this.logout();
-    //         });
-    //     }, 60000); // cada 60 segundos
-    // }
-
     startTokenRefresh(): void {
         const checkToken = () => {
             this.getKeycloakInstance().updateToken(60).then(refreshed => {

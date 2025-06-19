@@ -1,34 +1,30 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { PaginationService } from 'src/app/core/services/pagination.service';
 
-import { EstadosConveniosRepository } from '../data/estados-convenios.repository';
-import { EstadoConvenio, EstadoConvenioRpta } from '../data/estado-convenio.model';
+import { TiposConveniosRepository } from '../data/tipos-convenios.repository';
+import { TipoConvenio, TipoConvenioRpta } from '../data/tipo-convenio.model';
 
 
 @Injectable({ providedIn: 'root' })
-export class EstadosConveniosStateService {
-    items = signal<EstadoConvenio[]>([]);
-    item = signal<EstadoConvenio | null>(null);
+export class TiposConveniosStateService {
+    items = signal<TipoConvenio[]>([]);
+    item = signal<TipoConvenio | null>(null);
     // totalItems = signal<number>(1);
     // currentPage = signal<number>(1);
     // pageSize = signal<number>(5);
 
-    readonly itemsListado = computed(() =>
-        this.items().filter(e => e.ideEstadoConvenio != 2)
-    );
-
     constructor(
-        private estadosConveniosRepository: EstadosConveniosRepository,
+        private tiposConveniosRepository: TiposConveniosRepository,
         private spinner: NgxSpinnerService,
         private toastr: ToastrService,
     ) {}
 
     loadItems() {
         this.spinner.show();
-        this.estadosConveniosRepository.getAll().subscribe({
-            next: (data:EstadoConvenioRpta) => {
+        this.tiposConveniosRepository.getAll().subscribe({
+            next: (data:TipoConvenioRpta) => {
                 this.items.set(data.datos);
                 this.spinner.hide();
             },
@@ -38,7 +34,7 @@ export class EstadosConveniosStateService {
 
     loadItemById(id: number) {
         this.spinner.show();
-        this.estadosConveniosRepository.getBydId(id).subscribe({
+        this.tiposConveniosRepository.getBydId(id).subscribe({
             next: (data) => {
                 this.item.set(data.dato);
                 this.spinner.hide();
@@ -47,9 +43,9 @@ export class EstadosConveniosStateService {
         });
     }
 
-    addItem(item: EstadoConvenio, onSuccess?: () => void) {
+    addItem(item: TipoConvenio, onSuccess?: () => void) {
         this.spinner.show();
-        this.estadosConveniosRepository.create(item).subscribe({
+        this.tiposConveniosRepository.create(item).subscribe({
             next: (data) => {
                 this.loadItems();
                 this.toastr.success('Modalidad Convenio registrado correctamente');
@@ -63,9 +59,9 @@ export class EstadosConveniosStateService {
         });
     }
 
-    updateItem(id: number, item: EstadoConvenio, onSuccess?: () => void) {
+    updateItem(id: number, item: TipoConvenio, onSuccess?: () => void) {
         this.spinner.show();
-        this.estadosConveniosRepository.update(id, item).subscribe({
+        this.tiposConveniosRepository.update(id, item).subscribe({
             next: () => {
                 this.loadItems();
                 this.toastr.success('Modalidad Convenio actualizado correctamente');
@@ -79,7 +75,7 @@ export class EstadosConveniosStateService {
         });
     }
 
-    postForm(item: EstadoConvenio, id?: number, onSuccess?: () => void){
+    postForm(item: TipoConvenio, id?: number, onSuccess?: () => void){
         if(id){
             this.updateItem(id, item, onSuccess)
         }else{
@@ -89,7 +85,7 @@ export class EstadosConveniosStateService {
 
     deleteItem(id: number) {
         this.spinner.show();
-        this.estadosConveniosRepository.delete(id).subscribe({
+        this.tiposConveniosRepository.delete(id).subscribe({
             next: () => {
                 this.loadItems();
                 this.toastr.success('Modalidad Convenio eliminado correctamente');

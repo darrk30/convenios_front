@@ -14,24 +14,24 @@ export const MENU: MenuItem[] = [
             {
                 id: 3,
                 label: 'Principal',
-                link: '/dashboard',
+                link: '/',
                 parentId: 2
             },
         ]
     },
-    {
-        id: 4,
-        label: 'Mantenimiento',
-        icon: 'bx-wrench',
-        subItems: [
-            {
-                id: 5,
-                label: 'Institución',
-                link: '/mantenimiento/institucion',
-                parentId: 4
-            }
-        ]
-    },
+    // {
+    //     id: 4,
+    //     label: 'Mantenimiento',
+    //     icon: 'bx-wrench',
+    //     subItems: [
+    //         {
+    //             id: 5,
+    //             label: 'Institución',
+    //             link: '/mantenimiento/institucion',
+    //             parentId: 4
+    //         }
+    //     ]
+    // },
     {
         id: 6,
         label: 'Operaciones',

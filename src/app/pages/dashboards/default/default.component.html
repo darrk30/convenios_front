@@ -1,18 +1,123 @@
 <div class="container-fluid">
     <!-- start page title -->
     <div class="row">
-        <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">Dashboard</h4>
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <ng-container>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a>
-                            </li>
-                            <li class="breadcrumb-item active">Dashboard
-                            </li>
-                        </ng-container>
-                    </ol>
+        <div class="col-md-12">
+            <div class="card h-100 d-flex flex-column">
+                <div class="card-body flex-grow-1">
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <h4 class="card-title">Gráfico</h4>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Año</label>
+                                <!-- <select class="form-control form-select" #ideAnio (change)="changeAnio($event)" >
+                                    <option value>Todos</option>
+                                    <option [value]="anio" *ngFor="let anio of anios" >{{anio}}</option>
+                                </select> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3">
+                            <div class="card mini-stats-wid text-black" style="background-color: #cecece;" >
+                                <div class="card-body text-black">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p >Convenios Vigentes</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1 text-center">
+                                            <!-- <h1 class="mb-0">{{empresasAtendidas|number}}</h1> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top py-3">
+                                    <p class="mb-0"> <span class=" badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> </span> Avance</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card mini-stats-wid text-black" style="background-color: #cecece;" >
+                                <div class="card-body text-black">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p >Convenios Finalizados</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1 text-center">
+                                            <!-- <h1 class="mb-0">{{empresasAtendidas|number}}</h1> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top py-3">
+                                    <p class="mb-0"> <span class=" badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> </span> Avance</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card mini-stats-wid text-black" style="background-color: #cecece;" >
+                                <div class="card-body text-black">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p >Convenios No especificados</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1 text-center">
+                                            <!-- <h1 class="mb-0">{{empresasAtendidas|number}}</h1> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top py-3">
+                                    <p class="mb-0"> <span class=" badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> </span> Avance</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mini-stats-wid text-black" style="background-color: #cecece;" >
+                                <div class="card-body text-black">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <p >Total Convenio</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1 text-center">
+                                            <!-- <h1 class="mb-0">{{informeEmitidos|number}}</h1> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top py-3">
+                                    <p class="mb-0"> <span class="badge-soft-success me-1"><i class="bx bx-trending-up align-bottom me-1"></i> </span> Avance</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-sm-flex flex-wrap">
+                                        <h4 class="card-title mb-4">Cantidad de Informes emitidos por Meses</h4>
+                                    </div>
+                                    <!-- <apx-chart *ngIf="visualizarGrafico" #chart dir="ltr" class="apex-charts" [series]="informeBarChart.series" [chart]="informeBarChart.chart" [legend]="informeBarChart.legend" [stroke]="informeBarChart.stroke" [plotOptions]="informeBarChart.plotOptions" [fill]="informeBarChart.fill" [labels]="informeBarChart.labels" [dataLabels]="informeBarChart.dataLabels" [colors]="informeBarChart.colors" [markers]="informeBarChart.markers">
+                                    </apx-chart> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -54,8 +54,12 @@ export class ConveniosRepository {
 		return this.http.get(`${this.apiUrl}/export-to-excel`, { responseType: 'blob' });
 	}
 
-	descargarExceResumen(): Observable<Blob> {
+	descargarExcelResumen(): Observable<Blob> {
 		return this.http.get(`${this.apiUrl}/export-to-excel-resumen`, { responseType: 'blob' });
+	}
+
+	descargarPdfResumen(): Observable<Blob> {
+		return this.http.get(`${this.apiUrl}/export-to-pdf-resumen`, { responseType: 'blob' });
 	}
 
 }

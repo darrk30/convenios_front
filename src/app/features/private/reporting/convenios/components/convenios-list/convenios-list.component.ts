@@ -20,6 +20,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PagetitleComponent } from 'src/app/shared/components/pagetitle/pagetitle.component';
+import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
 
 @Component({
 	selector: 'app-convenios-list',
@@ -34,6 +35,7 @@ export class ConveniosListComponent {
 	private formBuilder = inject(FormBuilder);
 	public conveniosStateService = inject(ConveniosStateService);
 	public estadosConveniosStateService = inject(EstadosConveniosStateService);
+	public tiposConveniosStateService = inject(TiposConveniosStateService);
 	public modalidadesConveniosStateService = inject(ModalidadesConveniosStateService);
 	public paisesStateService = inject(PaisesStateService);
 	public oficinasStateService = inject(OficinasStateService);
@@ -49,10 +51,11 @@ export class ConveniosListComponent {
 	originalConvenios: Convenio[] = [];
 	conveniosFiltrados: Convenio[] = [];
 	breadCrumbItems: Array<{}>;
-
+	aniosSuscripcion:any;
 	formData: FormGroup = this.formBuilder.group({
 		ideEstadoConvenio:[""],
 		ideModalidadConvenio:[""],
+		ideTipoConvenio:[""],
 		ideAnio:[""],
 		idePais:[""],
 		ideContraparte:[],
@@ -65,6 +68,7 @@ export class ConveniosListComponent {
 		this.conveniosStateService.clearState();
 		this.listar();
 		this.listarEstadosConvenios();
+		this.listarTiposConvenios();
 		this.listarModalidadesConvenios();
 		this.listarPaises();
 		this.listarOficinas();
@@ -73,6 +77,10 @@ export class ConveniosListComponent {
 
 	listarEstadosConvenios(){
 		this.estadosConveniosStateService.loadItems();
+	}
+
+	listarTiposConvenios(){
+		this.tiposConveniosStateService.loadItems();
 	}
 
 	listarModalidadesConvenios(){
@@ -95,6 +103,13 @@ export class ConveniosListComponent {
 		this.conveniosStateService.loadItems().subscribe(() => {
 			this.originalConvenios = this.conveniosStateService.items();
 			this.conveniosFiltrados = [...this.originalConvenios];
+			this.aniosSuscripcion = Array.from(
+				new Set(
+					this.originalConvenios
+						.filter(c => c.fecSuscripcion) // evita nulos
+						.map(c => new Date(c.fecSuscripcion!).getFullYear())
+				)
+			).sort((a, b) => b - a);
 			this.rerender();
 		});
 	}
@@ -126,27 +141,70 @@ export class ConveniosListComponent {
 	buscar(){
 		this.conveniosFiltrados = this.originalConvenios.filter(c => {
 			const estadoSeleccionado = +this.formData.get('ideEstadoConvenio').value;
-			const modalidadSeleccionada = +this.formData.get('ideModalidadConvenio').value;
-			const paisSeleccionado = +this.formData.get('idePais').value;
-			const contraparteSeleccionado = +this.formData.get('ideContraparte').value;
-			const organoEjecutorSeleccionado = +this.formData.get('ideOrganoEjecutor').value;
+
+			const aniosSeleccionados: number[] = this.formData.get('ideAnio')?.value || [];
+			//const anioSeleccionado = +this.formData.get('ideAnio').value;
+			
+			const tiposConveniosSeleccionadas: number[] = this.formData.get('ideTipoConvenio')?.value || [];
+
+			const modalidadesSeleccionadas: number[] = this.formData.get('ideModalidadConvenio')?.value || [];
+			//const modalidadSeleccionada = +this.formData.get('ideModalidadConvenio').value;
+
+			const paisesSeleccionados: number[] = this.formData.get('idePais')?.value || [];
+			//const paisSeleccionado = +this.formData.get('idePais').value;
+			
+			const contrapartesSeleccionadas: number[] = this.formData.get('ideContraparte')?.value || [];
+
+			//const contraparteSeleccionado = +this.formData.get('ideContraparte').value;
+
+			const organosEjecutoresSeleccionados: number[] = this.formData.get('ideOrganoEjecutor')?.value || [];
+			//const organoEjecutorSeleccionado = +this.formData.get('ideOrganoEjecutor').value;
 
 			const coincideEstadoConvenio = !estadoSeleccionado || c.estadoConvenio?.ideEstadoConvenio === estadoSeleccionado;
-			const coincideModalidadConvenio = !modalidadSeleccionada || c.modalidadConvenio?.ideModalidadConvenio === modalidadSeleccionada;
-			const coincideOrganoEjecutorConvenio = !organoEjecutorSeleccionado || 
-			(
-				c.oficinasProponentes?.some(cp => cp.ideOficina === organoEjecutorSeleccionado)
-			);
+			
+			
 
-			const coincidePais = !paisSeleccionado || (
-				c.contrapartes?.some(cp => cp.institucion?.pais?.idePais === paisSeleccionado)
-			);
+			const coincideModalidadConvenio = modalidadesSeleccionadas.length === 0 ||
+				c.modalidadConvenio && modalidadesSeleccionadas.includes(c.modalidadConvenio.ideModalidadConvenio);
 
-			const coincideContraparte = !contraparteSeleccionado || (
-				c.contrapartes?.some(cp => cp.institucion.ideInstitucion === contraparteSeleccionado)
-			);
+			const coincideTipoConvenio = tiposConveniosSeleccionadas.length === 0 ||
+				c.tipoConvenio && tiposConveniosSeleccionadas.includes(c.tipoConvenio.ideTipoConvenio);
 
-			return coincideEstadoConvenio && coincideModalidadConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio;
+			//const coincideModalidadConvenio = !modalidadSeleccionada || c.modalidadConvenio?.ideModalidadConvenio === modalidadSeleccionada;
+
+			const coincideOrganoEjecutorConvenio = organosEjecutoresSeleccionados.length === 0 || 
+				c.oficinasProponentes?.some(cp => organosEjecutoresSeleccionados.includes(cp.ideOficina));
+
+			// const coincideOrganoEjecutorConvenio = !organoEjecutorSeleccionado || 
+			// (
+			// 	c.oficinasProponentes?.some(cp => cp.ideOficina === organoEjecutorSeleccionado)
+			// );
+
+
+			const coincidePais = paisesSeleccionados.length === 0 ||
+				c.contrapartes?.some(cp => paisesSeleccionados.includes(cp.institucion?.pais?.idePais));
+
+			// const coincidePais = !paisSeleccionado || (
+			// 	c.contrapartes?.some(cp => cp.institucion?.pais?.idePais === paisSeleccionado)
+			// );
+
+			const coincideContraparte = contrapartesSeleccionadas.length === 0 || 
+					c.contrapartes?.some(cp => contrapartesSeleccionadas.includes(cp.institucion?.ideInstitucion));
+
+			// const coincideContraparte = !contraparteSeleccionado || (
+			// 	c.contrapartes?.some(cp => cp.institucion.ideInstitucion === contraparteSeleccionado)
+			// );
+
+			
+
+
+			const coincideAnio = aniosSeleccionados.length === 0 || 
+    			(c.fecSuscripcion && aniosSeleccionados.includes(new Date(c.fecSuscripcion).getFullYear()));
+
+			// const coincideAnio = !anioSeleccionado || 
+			// 	(c.fecSuscripcion && new Date(c.fecSuscripcion).getFullYear() === anioSeleccionado);
+
+			return coincideEstadoConvenio && coincideTipoConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio && coincideAnio;
 		});
 
 		this.rerender();

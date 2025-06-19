@@ -33,6 +33,7 @@ export interface Convenio {
     contrapartes:any;
     organoEjecutor:any;
     oficinasProponentes:any;
+    tipoConvenio:any;
 }
 
 export interface ConvenioRpta {
