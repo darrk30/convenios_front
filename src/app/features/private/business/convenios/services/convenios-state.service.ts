@@ -84,6 +84,9 @@ export class ConveniosStateService {
 
                 this.toastr.success('Convenio actualizado correctamente');
                 this.spinner.hide();
+
+                this.loadItemById(id); 
+
                 if (onSuccess) onSuccess(updated.dato);
             },
             error: () => {

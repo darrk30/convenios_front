@@ -188,7 +188,7 @@
                                         <th scope="col" style="width: 20% !important;">Modalidad</th>
                                         <th scope="col" style="width: 10% !important;">Fecha Inicio</th>
                                         <th scope="col" style="width: 10% !important;">Fecha Fin</th>
-                                        <th scope="col" style="width: 5% !important;">Evidencia</th>
+                                        <th scope="col" style="width: 5% !important;">Contrato</th>
                                         <th scope="col" style="width: 5% !important;">Adenda</th>
                                         <th scope="col" style="width: 10% !important;">Estado</th>
                                         <th scope="col" style="width: 5% !important;">Acciones</th>
@@ -197,7 +197,8 @@
                                 <tbody>
                                     @for(convenio of conveniosFiltrados;track $index){
                                     <tr>
-                                        <td>{{ convenio.txtConvenio?.length > 30 ? (convenio.txtConvenio | slice:0:30) + '...' : convenio.txtConvenio }}</td>
+                                        <td class="wrap-columna-convenio">{{ convenio.txtConvenio }}</td>
+                                        <!-- <td>{{ convenio.txtConvenio?.length > 30 ? (convenio.txtConvenio | slice:0:30) + '...' : convenio.txtConvenio }}</td> -->
                                         <td>
                                             {{
                                                 convenio.oficinasProponentes?.length > 0

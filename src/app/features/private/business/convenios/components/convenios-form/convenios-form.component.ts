@@ -165,7 +165,6 @@ export class ConveniosFormComponent implements OnInit {
 	// }
 
 	getConvenio(){
-		console.log(this.formData.get('ideConvenio').value)
 		if(!this.ideConvenio) return;
 		this.conveniosStateService.loadItemById(this.ideConvenio);
 	}
@@ -180,12 +179,7 @@ export class ConveniosFormComponent implements OnInit {
 		if (this.formData.valid) {
 			const formDataClean = transformFormData(this.formData.getRawValue());
 
-			this.conveniosStateService.postForm(formDataClean, this.formData.get('ideConvenio').value,(updatedConvenio) => {
-                if (updatedConvenio) {
-                    //this.formData.patchValue(updatedConvenio);
-                    //this.toastr.info('Formulario sincronizado con datos actualizados');
-                }
-            }); 
+			this.conveniosStateService.postForm(formDataClean, this.formData.get('ideConvenio').value); 
 			
 		}
 		this.submitted = true
