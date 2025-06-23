@@ -10,7 +10,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   imports: [
     CommonModule,
     MaintenanceRoutingModule,
-    ModalModule.forRoot()
+    // ModalModule.forRoot()
   ]
 })
 export class MaintenanceModule { }

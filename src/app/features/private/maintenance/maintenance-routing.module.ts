@@ -5,6 +5,7 @@ import { LayoutComponent } from 'src/app/layouts/layout.component';
 
 const routes: Routes = [
 	{ path: 'perfil', loadChildren: () => import('./perfiles/perfiles.module').then(m => m.PerfilesModule) },
+	{ path: 'institucion', loadChildren: () => import('./instituciones/instituciones.module').then(m => m.InstitucionesModule) }
 ];
 
 @NgModule({

@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <app-page-title title="Institución" [flgBotonRegresar]="true" [idePagina]="idePagina" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form (ngSubmit)="grabar()" [formGroup]="formData">
+                            <section>
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre de la Institución:</label>
+                                            <input class="form-control" placeholder="Ingrese nombre de la Institución" type="text" autocomplete="off" formControlName="txtInstitucion" [ngClass]="{'is-invalid': submitted && formData.get('txtInstitucion').errors}" />
+                                            <div *ngIf="submitted && formData.get('txtInstitucion').errors" class="invalid-feedback">
+                                                <span *ngIf="formData.get('txtInstitucion').errors.required">Nombre de la Institución es requerida</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">   
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label">País:</label>
+                                            <select class="form-control form-select" formControlName="idePais" [ngClass]="{'is-invalid': submitted && formData.get('idePais').errors}">
+                                                <option [ngValue]="null">Seleccionar</option>
+                                                @for(pais of paisesStateService.items();track $index){
+                                                    <option value="{{pais.idePais}}">{{pais.txtPais}}</option>
+                                                }
+                                            </select>
+                                            <div *ngIf="submitted && formData.get('idePais').errors" class="invalid-feedback">
+                                                <span *ngIf="formData.get('idePais').errors.required">País de la Institución es requerido.</span>
+                                            </div>
+                                        </div>
+                                    </div>                                                                       
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo de Institución:</label>
+                                            <select class="form-control form-select" formControlName="ideTipoInstitucion" [ngClass]="{'is-invalid': submitted && formData.get('ideTipoInstitucion').errors}">
+                                                <option [ngValue]="null">Seleccionar</option>
+                                                @for(tipoInstitucion of tiposInstitucionesStateService.items();track $index){
+                                                    <option value="{{tipoInstitucion.ideTipoInstitucion}}">{{tipoInstitucion.txtTipoInstitucion}}</option>
+                                                }
+                                            </select>
+                                            <div *ngIf="submitted && formData.get('ideTipoInstitucion').errors" class="invalid-feedback">
+                                                <span *ngIf="formData.get('ideTipoInstitucion').errors.required">Tipo de la Institución es requerido.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label">Sector de Institución:</label>
+                                            <select class="form-control form-select" formControlName="ideSectorInstitucion" [ngClass]="{'is-invalid': submitted && formData.get('ideSectorInstitucion').errors}">
+                                                <option [ngValue]="null">Seleccionar</option>
+                                                @for(sectorInstitucion of sectoresInstitucionesStateService.items();track $index){
+                                                    <option value="{{sectorInstitucion.ideSectorInstitucion}}">{{sectorInstitucion.txtSectorInstitucion}}</option>
+                                                }
+                                            </select>
+                                            <div *ngIf="submitted && formData.get('ideSectorInstitucion').errors" class="invalid-feedback">
+                                                <span *ngIf="formData.get('ideSectorInstitucion').errors.required">Sector de la Institución es requerido.</span>
+                                            </div>
+                                        </div>
+                                    </div>                                                                         
+                                </div>
+                                <div class="row mb-3">
+                                  <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Número de Identificación Fiscal:</label>
+                                            <input class="form-control" placeholder="Ingrese el Número de Identificación Fiscal" type="text" autocomplete="off" formControlName="numIdentificadorFiscal" [ngClass]="{'is-invalid': submitted && formData.get('numIdentificadorFiscal').errors}" />
+                                            <div *ngIf="submitted && formData.get('numIdentificadorFiscal').errors" class="invalid-feedback">
+                                                <span *ngIf="formData.get('numIdentificadorFiscal').errors.required">Número de Identificación Fiscal es requerido</span>
+                                            </div>
+                                        </div>
+                                    </div>                                 
+                                </div>   
+
+                                <hr>                                                                
+                                <div class="row mb-3" *ngIf="this.flagAction != 3">
+                                    <div class="col-md-12">
+                                        <div class="float-start">
+                                            <button type="submit" class="btn btn-success">Grabar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>                            
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

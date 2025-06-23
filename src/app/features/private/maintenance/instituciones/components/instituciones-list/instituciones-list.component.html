@@ -1,0 +1,122 @@
+<div class="container-fluid">    
+  <app-page-title title="Lista de Instituciones" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <form (ngSubmit)="buscar()" [formGroup]="formData">                    
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label">Pais</label>
+                  <ng-select
+                      formControlName="idePais"
+                      [items]="paisesStateService.items()"
+                      bindLabel="txtPais"
+                      bindValue="idePais"
+                      placeholder="Seleccionar"
+                      [searchable]="true"
+                      [clearable]="true"
+                      [multiple]="true"    
+                  >
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label">Tipo Institución</label>
+                  <ng-select
+                      formControlName="ideTipoInstitucion"
+                      [items]="tiposInstitucionesStateService.items()"
+                      bindLabel="txtTipoInstitucion"
+                      bindValue="ideTipoInstitucion"
+                      placeholder="Seleccionar"
+                      [searchable]="true"
+                      [clearable]="true"
+                      [multiple]="true"    
+                  >
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label">Sector Institución</label>
+                  <ng-select
+                      [items]="sectoresInstitucionesStateService.items()"
+                      bindLabel="txtSectorInstitucion"
+                      bindValue="ideSectorInstitucion"
+                      placeholder="Seleccionar"
+                      formControlName="ideSectorInstitucion"
+                      [searchable]="true"
+                      [clearable]="true"
+                      [multiple]="true" 
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-12">
+                <div class="float-start">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="agregar()">Agregar</button>
+                </div> 
+                <div class="float-end">
+                  <button type="submit" class="btn btn-info" >Buscar</button> &nbsp;
+                </div> 
+              </div><!-- end col-->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-12">                            
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100">
+                  <thead>
+                      <tr>
+                          <th scope="col" style="width: 20% !important;">Institución</th>
+                          <th scope="col" style="width: 20% !important;">País</th>
+                          <th scope="col" style="width: 10% !important;">Tipo de Institución</th>
+                          <th scope="col" style="width: 10% !important;">Sector de Institución</th>
+                          <th scope="col" style="width: 5% !important;">Número de Identificador Fiscal</th>
+                          <th scope="col" style="width: 5% !important;">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @for(institucion of institucionesFiltrados;track $index){
+                      <tr>
+                          <td>{{ institucion.txtInstitucion }}</td>
+                          
+                          <td>{{ institucion.pais?.txtPais?.length > 25 ? (institucion.pais?.txtPais | slice:0:25) + '...' : institucion.pais?.txtPais }}</td>
+                          <td>{{ institucion.tipoInstitucion?.txtTipoInstitucion?.length > 25 ? (institucion.tipoInstitucion?.txtTipoInstitucion | slice:0:25) + '...' : institucion.tipoInstitucion?.txtTipoInstitucion }}</td>
+                          <td>{{ institucion.sectorInstitucion?.txtSectorInstitucion?.length > 25 ? (institucion.sectorInstitucion?.txtSectorInstitucion | slice:0:25) + '...' : institucion.sectorInstitucion?.txtSectorInstitucion }}</td>
+                          <td>{{ institucion.numIdentificadorFiscal.length > 25 ? (institucion.numIdentificadorFiscal | slice:0:25) + '...' : institucion.numIdentificadorFiscal }}</td>
+                          
+                          <td>
+                              <div  class="dropdown" dropdown placement="bottom-right">
+                                  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle aria-expanded="false">
+                                      Acciones <i class="mdi mdi-chevron-down font-size-14"></i>
+                                  </button>
+                                  <ul class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                                      <li><a href="javascript: void(0);" class="dropdown-item" (click)="editar(institucion)"><i class="fas fa-pencil-alt text-success me-1"></i>Editar</a></li>
+                                      <li><a href="javascript: void(0);" class="dropdown-item" (click)="eliminar(institucion.ideInstitucion)"><i class="fas fa-trash-alt text-danger me-1"></i>Eliminar</a></li>
+                                  </ul>
+                              </div>
+                          </td>
+                      </tr>
+                    }
+                  </tbody>
+              </table>                            
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -28,6 +28,8 @@ export class PagetitleComponent implements OnInit {
 			this.router.navigate([`negocio/convenio`]);
 		}else if(this.idePagina == 3){
 			this.router.navigate([`reporte/convenio`]);
+		}else if(this.idePagina == 4){
+			this.router.navigate([`mantenimiento/institucion`]);
 		}else{
 			this.router.navigate([`dashboard`]);
 		}

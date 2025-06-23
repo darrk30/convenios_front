@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PaginationService } from 'src/app/core/services/pagination.service';
 import { Institucion, InstitucionRpta } from '../data/institucion.model';
 import { InstitucionesRepository } from '../data/instituciones.repository';
+import { Observable, Subject } from 'rxjs';
 
 
 @Injectable({ providedIn: 'root' })
@@ -21,15 +22,23 @@ export class InstitucionesStateService {
         private paginationService: PaginationService
     ) {}
 
-    loadItems(page: number = 1) {
+    loadItems(): Observable<void> {
+        const subject = new Subject<void>();    
         this.spinner.show();
         this.institucionesRepository.getAll().subscribe({
             next: (data:InstitucionRpta) => {
                 this.items.set(data.datos);
                 this.spinner.hide();
+                subject.next();
+                subject.complete();
             },
-            error: () => this.spinner.hide(),
+            error: () => {
+                this.spinner.hide();
+                subject.error('Error');
+            },
         });
+        
+        return subject.asObservable();
     }
 
     loadItemById(id: number) {
@@ -47,35 +56,43 @@ export class InstitucionesStateService {
         this.spinner.show();
         this.institucionesRepository.create(item).subscribe({
             next: (data) => {
-                this.loadItems();
-                this.toastr.success('Modalidad Convenio registrado correctamente');
+                // this.loadItems();
+                this.toastr.success('Institución registrada correctamente');
                 this.spinner.hide();
                 if (onSuccess) onSuccess();
             },
             error: () => {
-                this.toastr.error('Error al registrar el Modalidad Convenio');
+                this.toastr.error('Error al registrar la Institución');
                 this.spinner.hide();
             }
         });
     }
 
-    updateItem(id: number, item: Institucion, onSuccess?: () => void) {
+    updateItem(id: number, item: Institucion, onSuccess?: (updated?: Institucion) => void) {
         this.spinner.show();
         this.institucionesRepository.update(id, item).subscribe({
-            next: () => {
-                this.loadItems();
-                this.toastr.success('Modalidad Convenio actualizado correctamente');
+            next: (updated: InstitucionRpta) => {
+                // this.loadItems();
+                this.toastr.success('Institución actualizada correctamente');
                 this.spinner.hide();
-                if (onSuccess) onSuccess();
+
+                this.loadItemById(id); 
+
+                if (onSuccess) onSuccess(updated.dato);
             },
             error: () => {
-                this.toastr.error('Error al actualizar el Modalidad Convenio');
+                this.toastr.error('Error al actualizar la Institución');
                 this.spinner.hide();
             }
         });
     }
 
-    postForm(item: Institucion, id?: number, onSuccess?: () => void){
+    clearState() {
+        this.item.set(null);
+        this.items.set([]);
+    }
+
+    postForm(item: Institucion, id?: number, onSuccess?: (updated?: Institucion) => void){
         if(id){
             this.updateItem(id, item, onSuccess)
         }else{
@@ -84,17 +101,22 @@ export class InstitucionesStateService {
     }
 
     deleteItem(id: number) {
+        const subject = new Subject<void>();
         this.spinner.show();
+
         this.institucionesRepository.delete(id).subscribe({
             next: () => {
-                this.loadItems();
-                this.toastr.success('Modalidad Convenio eliminado correctamente');
+                // this.loadItems();
+                this.toastr.success('Institución eliminada correctamente');
                 this.spinner.hide();
+                subject.next();
+                subject.complete();
             },
             error: () => {
-                this.toastr.error('Error al eliminar el Modalidad Convenio');
+                this.toastr.error('Error al eliminar la Institución');
                 this.spinner.hide();
             }
         });
+        return subject.asObservable();        
     }
 }

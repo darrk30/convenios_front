@@ -5,7 +5,8 @@ import { InstitucionesRoutingModule } from './instituciones-routing.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     InstitucionesRoutingModule

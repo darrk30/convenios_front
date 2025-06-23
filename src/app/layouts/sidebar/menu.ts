@@ -19,19 +19,19 @@ export const MENU: MenuItem[] = [
             },
         ]
     },
-    // {
-    //     id: 4,
-    //     label: 'Mantenimiento',
-    //     icon: 'bx-wrench',
-    //     subItems: [
-    //         {
-    //             id: 5,
-    //             label: 'Institución',
-    //             link: '/mantenimiento/institucion',
-    //             parentId: 4
-    //         }
-    //     ]
-    // },
+    {
+        id: 4,
+        label: 'Mantenimiento',
+        icon: 'bx-wrench',
+        subItems: [
+            {
+                id: 5,
+                label: 'Instituciones',
+                link: '/mantenimiento/institucion',
+                parentId: 4
+            }
+        ]
+    },
     {
         id: 6,
         label: 'Operaciones',
