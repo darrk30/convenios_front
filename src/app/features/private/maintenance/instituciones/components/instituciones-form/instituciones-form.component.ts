@@ -116,8 +116,11 @@ export class InstitucionesFormComponent implements OnInit{
     if (this.formData.valid) {
       const formDataClean = transformFormData(this.formData.getRawValue());
 
-      this.institucionesStateService.postForm(formDataClean, this.formData.get('ideInstitucion').value); 
-		  this.router.navigate(["mantenimiento/institucion"]).then(()=> {window.location.reload()});
+      this.institucionesStateService.postForm(formDataClean, this.formData.get('ideInstitucion').value,
+        () => {
+		      this.router.navigate(["/mantenimiento/institucion"]);
+        }
+      ); 
     }
     this.submitted = true
   }
