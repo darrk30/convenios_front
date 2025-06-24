@@ -58,7 +58,8 @@ export function limpiarCamposVacios(obj: any): any {
             if (Object.keys(nested).length > 0) {
                 limpio[key] = nested;
             }
-        } else if (value !== null && value !== '' && value !== undefined && value !== 'null') {
+        }
+        else if (value !== null && value !== '' && value !== undefined && value !== 'null' && !(Array.isArray(value) && value.length == 0)) {
             limpio[key] = value;
         }
     });
