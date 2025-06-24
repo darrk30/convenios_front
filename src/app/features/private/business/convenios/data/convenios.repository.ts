@@ -50,16 +50,29 @@ export class ConveniosRepository {
 		return this.http.get(`${this.apiUrl}/descargar/${uuid}`, { responseType: 'blob' });
 	}
 
-	descargarExcel(): Observable<Blob> {
-		return this.http.get(`${this.apiUrl}/export-to-excel`, { responseType: 'blob' });
+	convertToURLParams(filterData: any){
+		const urlParams = Object.keys(filterData).map((key) => {
+				const value = filterData[key];
+				if (!Array.isArray(value))	return `${key}=${value}`;
+				return value.map((val)=>`${key}=${val}`).join("&");
+			}
+		).join("&");
+		return urlParams;
 	}
 
-	descargarExcelResumen(): Observable<Blob> {
-		return this.http.get(`${this.apiUrl}/export-to-excel-resumen`, { responseType: 'blob' });
+	descargarExcel(filterData: any): Observable<Blob> {
+		const urlParams = this.convertToURLParams(filterData);
+		return this.http.get(`${this.apiUrl}/export-to-excel?${urlParams}`, { responseType: 'blob' });
 	}
 
-	descargarPdfResumen(): Observable<Blob> {
-		return this.http.get(`${this.apiUrl}/export-to-pdf-resumen`, { responseType: 'blob' });
+	descargarExcelResumen(filterData: any): Observable<Blob> {
+		const urlParams = this.convertToURLParams(filterData);
+		return this.http.get(`${this.apiUrl}/export-to-excel-resumen?${urlParams}`, { responseType: 'blob' });
+	}
+
+	descargarPdfResumen(filterData: any): Observable<Blob> {
+		const urlParams = this.convertToURLParams(filterData);
+		return this.http.get(`${this.apiUrl}/export-to-pdf-resumen?${urlParams}`, { responseType: 'blob' });
 	}
 
 }

@@ -10,15 +10,15 @@ export class ConvenioStore {
         return this.conveniosRepository.descargar(uuid);
     }
 
-    descargarExcel(): Observable<Blob> {
-        return this.conveniosRepository.descargarExcel();
+    descargarExcel(filterData: any): Observable<Blob> {
+        return this.conveniosRepository.descargarExcel(filterData);
     }
 
-    descargarExcelResumen(): Observable<Blob> {
-        return this.conveniosRepository.descargarExcelResumen();
+    descargarExcelResumen(filterData: any): Observable<Blob> {
+        return this.conveniosRepository.descargarExcelResumen(filterData);
     }
 
-    descargarPdfResumen(): Observable<Blob> {
-        return this.conveniosRepository.descargarPdfResumen();
+    descargarPdfResumen(filterData: any): Observable<Blob> {
+        return this.conveniosRepository.descargarPdfResumen(filterData);
     }
 }

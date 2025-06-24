@@ -22,6 +22,7 @@ import { saveAs } from "file-saver";
 import { PagetitleComponent } from 'src/app/shared/components/pagetitle/pagetitle.component';
 import { ArchivoStore } from '../../../archivos/services/archivo.store';
 import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
+import { limpiarCamposVacios, transformFormData } from 'src/app/core/helpers/clean-form';
 
 
 @Component({
@@ -210,8 +211,20 @@ export class ConveniosListComponent {
 		this.rerender();
 	}
 
+	obtenerFormValueLimpio(){
+		const raw = this.formData.getRawValue();
+		const limpio = limpiarCamposVacios(raw);
+
+		if (limpio.hasOwnProperty("ideEstadoConvenio")){
+			limpio["ideEstadoConvenio"] = Number(limpio["ideEstadoConvenio"]);
+		}
+		return limpio;
+	}
+
 	descargarExcel(){
-		this.convenioStore.descargarExcel().subscribe({
+		const cleanFormValue = this.obtenerFormValueLimpio();
+		
+		this.convenioStore.descargarExcel(cleanFormValue).subscribe({
 			next: (response: Blob) => {
 				const contentType = response.type;
 
@@ -253,7 +266,9 @@ export class ConveniosListComponent {
 	}
 	
 	descargarExcelResumen(){
-		this.convenioStore.descargarExcelResumen().subscribe({
+		const cleanFormValue = this.obtenerFormValueLimpio();
+
+		this.convenioStore.descargarExcelResumen(cleanFormValue).subscribe({
 			next: (response: Blob) => {
 				const contentType = response.type;
 
@@ -295,7 +310,9 @@ export class ConveniosListComponent {
 	}
 
 	descargarPdfResumen(){
-		this.convenioStore.descargarPdfResumen().subscribe({
+		const cleanFormValue = this.obtenerFormValueLimpio();
+
+		this.convenioStore.descargarPdfResumen(cleanFormValue).subscribe({
 			next: (response: Blob) => {
 				const contentType = response.type;
 
