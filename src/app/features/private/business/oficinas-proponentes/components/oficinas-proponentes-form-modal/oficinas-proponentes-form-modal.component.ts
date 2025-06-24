@@ -35,8 +35,8 @@ export class OficinasProponentesFormModalComponent {
 		ideOficinaProponente: [],
 		ideConvenio: [,[Validators.required]],
 		ideOficina: [,[Validators.required]],
-		ideCoordinadorTitular: [,[Validators.required]],
-		ideCoordinadorAlterno: [,[Validators.required]],
+		ideCoordinadorTitular: [],
+		ideCoordinadorAlterno: [],
 		numAporteMonetario: [,[Validators.required]],
 		numAporteNoMonetario: [,[Validators.required]],
 	});
