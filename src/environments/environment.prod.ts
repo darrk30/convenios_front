@@ -4,7 +4,7 @@ export const environment = {
 	shortNameSystem: 'ITP - CONVENIOS - OGTI',
 	urlBackend: 'http://localhost:5278',
 	siteKeyCaptcha: "6Ldp8_spAAAAAP3ztV39YBUbWJ7MposM1RFLhVi2",
-	tamanioArchivoMB: 5,
+	tamanioArchivoMB: 10,
   urlSso: "https://sso-dev.itp.gob.pe:8080/",
 	realm: "itp",
   clientId: "app-Convenios",
