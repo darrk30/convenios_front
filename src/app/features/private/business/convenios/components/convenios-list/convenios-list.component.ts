@@ -22,7 +22,7 @@ import { saveAs } from "file-saver";
 import { PagetitleComponent } from 'src/app/shared/components/pagetitle/pagetitle.component';
 import { ArchivoStore } from '../../../archivos/services/archivo.store';
 import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
-import { limpiarCamposVacios, transformFormData } from 'src/app/core/helpers/clean-form';
+import { limpiarCamposVacios, objectToText, transformFormData } from 'src/app/core/helpers/clean-form';
 
 
 @Component({
@@ -64,6 +64,7 @@ export class ConveniosListComponent {
 		idePais:[""],
 		ideContraparte:[],
 		ideOrganoEjecutor:[],
+		txtBusquedaGeneral:[""]
 	});
 
 	ngOnInit(): void {
@@ -167,6 +168,9 @@ export class ConveniosListComponent {
 	}
 	
 	buscar(){
+
+		const textoBusqueda = (this.formData.get('txtBusquedaGeneral')?.value || '').toLowerCase();
+
 		this.conveniosFiltrados = this.originalConvenios.filter(c => {
 			const estadoSeleccionado = +this.formData.get('ideEstadoConvenio').value;
 
@@ -181,6 +185,14 @@ export class ConveniosListComponent {
 			const contrapartesSeleccionadas: number[] = this.formData.get('ideContraparte')?.value || [];
 
 			const organosEjecutoresSeleccionados: number[] = this.formData.get('ideOrganoEjecutor')?.value || [];
+
+
+			///const textoCompleto = objectToText(c).toLowerCase();
+			//const coincideBusquedaGeneral = textoCompleto.includes(textoBusqueda);
+
+
+
+
 
 			const coincideEstadoConvenio = !estadoSeleccionado || c.estadoConvenio?.ideEstadoConvenio === estadoSeleccionado;
 			

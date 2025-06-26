@@ -65,3 +65,31 @@ export function limpiarCamposVacios(obj: any): any {
     });
     return limpio;
 }
+
+
+export function objectToText(obj: any): string {
+	let result = '';
+
+	if (obj === null || obj === undefined) return '';
+
+	if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean') {
+		return obj.toString();
+	}
+
+	if (Array.isArray(obj)) {
+		for (const item of obj) {
+			result += ' ' + objectToText(item);
+		}
+		return result;
+	}
+
+	if (typeof obj === 'object') {
+		for (const key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				result += ' ' + objectToText(obj[key]);
+			}
+		}
+	}
+
+	return result;
+}
