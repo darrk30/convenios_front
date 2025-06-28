@@ -16,6 +16,7 @@ import { GlobalService } from './global.service';
 import { TokenStorageService } from './token-storage.service';
 import { environment } from 'src/environments/environment';
 import { Autenticacion } from 'src/app/store/Authentication/autenticacion.models';
+import { Rol } from '@/app/features/private/maintenance/perfiles/data/perfil.model';
 
 @Injectable({
   providedIn: 'root'
@@ -83,7 +84,7 @@ export class KeycloakService {
                 const informacionTotal = this.keycloak.tokenParsed;
                 // const permisos = informacionTotal?.authorization?.permissions;
 
-                 console.log(informacionTotal);
+                //  console.log(informacionTotal);
 
                  if (!informacionTotal || !informacionTotal.resource_access?.[environment.clientId]) {
                     this.accesoDenegadoSubject.next(true);
@@ -92,9 +93,11 @@ export class KeycloakService {
                 }
 
                  // Roles por cliente
-                const clientId = informacionTotal.resource_access?.[environment.clientId];
-                console.log(clientId)
-                
+                const KeycloakRoles = informacionTotal.resource_access?.[environment.clientId];
+                if (KeycloakRoles){
+                    this.globalService.setRoles(KeycloakRoles.roles as Rol[]);
+                    this.globalService.setCurrentRolIndex(0);// Cambiar indice por una funcion que de por defecto el rol con mas permisoss
+                }
 
                 //console.log(informacionTotal)
                 const token = this.getKeycloakInstance().token;
@@ -116,6 +119,8 @@ export class KeycloakService {
                     usuario: usuarioNombre,
                     nombresApellidos: nombresApellidos,
                     numeroDocumento: numeroDocumento ,
+                    roles: KeycloakRoles.roles,
+                    currentRolIndex: 0,
                     token: token
                     // otros campos según tu definición
                 };

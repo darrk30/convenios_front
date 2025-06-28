@@ -12,3 +12,9 @@ export interface PerfilRpta {
     datos : Perfil[];
     dato : Perfil;
 }
+
+export enum Rol{
+    Administrador = 'CONVENIOS_ROL_ADMINISTRADOR',
+    Coordinador = 'CONVENIOS_ROL_COORDINADOR',
+    Supervisor = 'CONVENIOS_ROL_SUPERVISOR'
+}

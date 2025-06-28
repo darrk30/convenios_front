@@ -9,6 +9,8 @@ import { MenuItem } from './menu.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { CommonModule } from '@angular/common';
+import { GlobalService } from '@/app/core/services/global.service';
+import { Rol } from '@/app/features/private/maintenance/perfiles/data/perfil.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,14 +30,16 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 	data: any;
 
 	menuItems: MenuItem[] = [];
-
+	currentRol: Rol;
 	@ViewChild('sideMenu') sideMenu: ElementRef;
 
 	constructor(
 		private router: Router, 
 		public translate: TranslateService, 
-		private http: HttpClient
+		private http: HttpClient,
+		private globalService: GlobalService
 	) {
+		this.currentRol = globalService.getCurrentRol();
 		router.events.forEach((event) => {
 		if (event instanceof NavigationEnd) {
 			this._activateMenuDropdown();
@@ -146,7 +150,18 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 	 * Initialize
 	 */
 	initialize(): void {
-		this.menuItems = MENU;
+		if (this.currentRol === Rol.Administrador){
+			this.menuItems = MENU;
+		}
+		else if (this.currentRol === Rol.Coordinador){
+			this.menuItems = MENU.filter((menuItem) => menuItem.id !== 4);
+			const operacionesMenu =  this.menuItems.find((menuItem) => menuItem.id === 6);
+			operacionesMenu.subItems = operacionesMenu.subItems.filter((menuItem) => menuItem.id !== 7);
+		}
+		else{
+			this.menuItems = MENU.filter((menuItem) => menuItem.id !== 4 && menuItem.id !== 6);
+		}
+		// Esto deberia venir de la API, en lugar de filtrarse aca		
 	}
 
 	/**

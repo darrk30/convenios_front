@@ -1,3 +1,4 @@
+import { Rol } from '@/app/features/private/maintenance/perfiles/data/perfil.model';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -12,6 +13,8 @@ export class GlobalService {
 	numeroDocumento: string;
 	nombreLargoSistema: string;
 	nombreCortoSistema: string;
+	roles: Rol[] = [];
+	currentRolIndex = 0;
 
 	constructor(){
 		const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('currentUser') ?? 'null'): null;
@@ -19,6 +22,8 @@ export class GlobalService {
 		this.setNombresApellidos(storedUser?.nombresApellidos);
 		this.setNumeroDocumento(storedUser?.numeroDocumento);
 		this.setIdeUsuario(storedUser?.ideUsuario);
+		this.setRoles(storedUser?.roles);
+		this.setCurrentRolIndex(storedUser?.currentRolIndex);
 		this.setNombreLargoSistema(environment.longNameSystem);
 		this.setNombreCortoSistema(environment.shortNameSystem);
 	}
@@ -62,5 +67,31 @@ export class GlobalService {
 
 	getNombreCortoSistema(){
 		return this.nombreCortoSistema;
+	}
+
+	setRoles(roles: Rol[]){
+		this.roles = roles;
+	}
+
+	getRoles(){
+		return this.roles;
+	}
+
+	setCurrentRolIndex(index: number){
+		const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('currentUser') ?? 'null'): null;
+		if(storedUser){
+			storedUser.currentRolIndex = index
+		}
+		localStorage.setItem('currentUser', JSON.stringify(storedUser));
+
+		this.currentRolIndex = index;
+	}
+
+	getCurrentRolIndex(){
+		return this.currentRolIndex;
+	}
+	
+	getCurrentRol(){
+		return this.roles[this.currentRolIndex];
 	}
 }

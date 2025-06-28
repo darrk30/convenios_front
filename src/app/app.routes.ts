@@ -3,6 +3,7 @@ import { Page404Component } from './extrapages/page404/page404.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layouts/layout.component';
 import { KeycloakSsoGuard } from './core/guards/auth-sso.guard';
+import { AdminGuard } from '@/app/core/guards/admin-guard';
 
 export const routes: Routes = [
     {
@@ -29,7 +30,7 @@ export const routes: Routes = [
         component: LayoutComponent,
         loadChildren: () =>
             import("./features/private/maintenance/maintenance.module").then((m) => m.MaintenanceModule),
-        canActivate: [KeycloakSsoGuard],
+        canActivate: [KeycloakSsoGuard, AdminGuard],
     },
     {
         path: "reporte",

@@ -13,6 +13,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { AutenticacionService } from 'src/app/core/services/autenticacion.service';
 import { GlobalService } from 'src/app/core/services/global.service';
+import { Rol } from '@/app/features/private/maintenance/perfiles/data/perfil.model';
 
 @Component({
 	selector: 'app-topbar',
@@ -36,6 +37,8 @@ export class TopbarComponent implements OnInit {
 	dataLayout$: Observable<string>;
 	nombresApellidos: string;
 	nombreLargoSistema: string;
+	roles: string[];
+	currentRolIndex: number;
 	//nombreCortoSistema: string;
 	// Define layoutMode as a property
 
@@ -49,6 +52,8 @@ export class TopbarComponent implements OnInit {
 		public store: Store<RootReducerState>
 	) {
 		this.nombresApellidos = this.globalService.getNombresApellidos();
+		this.roles = this.globalService.getRoles().map((rol)=> rol.split("_")[2]);
+		this.currentRolIndex = this.globalService.getCurrentRolIndex();
 	}
 
 	openMobileMenu: boolean;
@@ -66,7 +71,9 @@ export class TopbarComponent implements OnInit {
 
 	}
 
-	
+	get currentRol(){
+		return this.roles[this.currentRolIndex];
+	}
 
 	/**
 	 * Toggles the right sidebar
@@ -134,4 +141,14 @@ export class TopbarComponent implements OnInit {
 		document.documentElement.setAttribute('data-layout', layout)
 		})
 	}
+
+	cambiarRol(){
+		this.currentRolIndex = (this.currentRolIndex + 1) % this.roles.length;
+		if (!(["ADMINISTRADOR", "SUPERVISOR", "COORDINADOR"].includes(this.currentRol))){
+			this.currentRolIndex = (this.currentRolIndex + 1) % this.roles.length;
+		}
+		this.globalService.setCurrentRolIndex(this.currentRolIndex);
+		window.location.reload();
+	}
+
 }
