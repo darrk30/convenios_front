@@ -168,9 +168,8 @@ export class ConveniosListComponent {
 	}
 	
 	buscar(){
-
-		const textoBusqueda = (this.formData.get('txtBusquedaGeneral')?.value || '').toLowerCase();
-
+		const searchKeywords = (this.formData.get('txtBusquedaGeneral')?.value || '').toLowerCase().trim().split(' ').filter((keyword) => keyword !== '');
+		
 		this.conveniosFiltrados = this.originalConvenios.filter(c => {
 			const estadoSeleccionado = +this.formData.get('ideEstadoConvenio').value;
 
@@ -187,8 +186,8 @@ export class ConveniosListComponent {
 			const organosEjecutoresSeleccionados: number[] = this.formData.get('ideOrganoEjecutor')?.value || [];
 
 
-			///const textoCompleto = objectToText(c).toLowerCase();
-			//const coincideBusquedaGeneral = textoCompleto.includes(textoBusqueda);
+			const textoCompleto = objectToText(c).toLowerCase();
+			const coincideBusquedaGeneral = searchKeywords.every((keyword) => textoCompleto.includes(keyword));
 
 
 
@@ -217,7 +216,7 @@ export class ConveniosListComponent {
 			const coincideAnio = aniosSeleccionados.length === 0 || 
     			(c.fecSuscripcion && aniosSeleccionados.includes(new Date(c.fecSuscripcion).getFullYear()));
 
-			return coincideEstadoConvenio && coincideTipoConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio && coincideAnio;
+			return coincideBusquedaGeneral && coincideEstadoConvenio && coincideTipoConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio && coincideAnio;
 		});
 
 		this.rerender();

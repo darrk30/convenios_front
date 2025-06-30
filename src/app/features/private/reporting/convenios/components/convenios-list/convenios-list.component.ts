@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PagetitleComponent } from 'src/app/shared/components/pagetitle/pagetitle.component';
 import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
-import { limpiarCamposVacios } from 'src/app/core/helpers/clean-form';
+import { limpiarCamposVacios, objectToText } from 'src/app/core/helpers/clean-form';
 
 @Component({
 	selector: 'app-convenios-list',
@@ -61,6 +61,7 @@ export class ConveniosListComponent {
 		idePais:[""],
 		ideContraparte:[],
 		ideOrganoEjecutor:[],
+		txtBusquedaGeneral:[""]
 	});
 
 	ngOnInit(): void {
@@ -140,6 +141,8 @@ export class ConveniosListComponent {
 	}
 
 	buscar(){
+		const searchKeywords = (this.formData.get('txtBusquedaGeneral')?.value || '').toLowerCase().trim().split(' ').filter((keyword) => keyword !== '');
+
 		this.conveniosFiltrados = this.originalConvenios.filter(c => {
 			const estadoSeleccionado = +this.formData.get('ideEstadoConvenio').value;
 
@@ -160,6 +163,9 @@ export class ConveniosListComponent {
 
 			const organosEjecutoresSeleccionados: number[] = this.formData.get('ideOrganoEjecutor')?.value || [];
 			//const organoEjecutorSeleccionado = +this.formData.get('ideOrganoEjecutor').value;
+			
+			const textoCompleto = objectToText(c).toLowerCase();
+			const coincideBusquedaGeneral = searchKeywords.every((keyword) => textoCompleto.includes(keyword));
 
 			const coincideEstadoConvenio = !estadoSeleccionado || c.estadoConvenio?.ideEstadoConvenio === estadoSeleccionado;
 			
@@ -205,7 +211,7 @@ export class ConveniosListComponent {
 			// const coincideAnio = !anioSeleccionado || 
 			// 	(c.fecSuscripcion && new Date(c.fecSuscripcion).getFullYear() === anioSeleccionado);
 
-			return coincideEstadoConvenio && coincideTipoConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio && coincideAnio;
+			return coincideBusquedaGeneral && coincideEstadoConvenio && coincideTipoConvenio && coincidePais && coincideContraparte && coincideOrganoEjecutorConvenio && coincideAnio;
 		});
 
 		this.rerender();

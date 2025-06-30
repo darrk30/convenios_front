@@ -4,7 +4,7 @@ const dtOptionsData = {
     paging: true,
     deferRender:true,
     lengthChange: true,
-    searching: true,
+    searching: false,
     ordering: true,
     info: true,
     autoWidth: true,
