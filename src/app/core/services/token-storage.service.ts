@@ -1,7 +1,8 @@
+import { environment } from '@/environments/environment';
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';
-const USER_KEY = 'currentUser';
+const USER_KEY = `${environment.appStoragePrefix}currentUser`;
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class TokenStorageService {
   }
 
   public getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem(`${environment.appStoragePrefix}token`);
   }
 
   public saveUser(user: any): void {

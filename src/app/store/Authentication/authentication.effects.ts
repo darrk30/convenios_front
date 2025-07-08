@@ -23,8 +23,8 @@ export class AuthenticationEffects {
 				return this.autenticacionService.login(usuario, clave).pipe(
 					map((usuario) => {
 						if (usuario) {
-							localStorage.setItem('currentUser', JSON.stringify(usuario));
-							localStorage.setItem('token', usuario.token);
+							localStorage.setItem(`${environment.appStoragePrefix}currentUser`, JSON.stringify(usuario));
+							localStorage.setItem(`${environment.appStoragePrefix}token`, usuario.token);
 							this.autenticacionService.setToken();
 							this.router.navigate(['/']);
 						}

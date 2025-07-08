@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		if (localStorage.getItem('currentUser')) {
+		if (localStorage.getItem(`${environment.appStoragePrefix}currentUser`)) {
 			this.router.navigate(['/']);
 		}
 		// form validation

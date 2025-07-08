@@ -38,7 +38,7 @@ export class KeycloakService {
 
     //private currentUsuarioSubject: BehaviorSubject<Autenticacion>;
     //public currentUsuario: Observable<Autenticacion>;
-    private tokenKey = 'token';  // Donde se almacena el token en localStorage
+    private tokenKey = `${environment.appStoragePrefix}token`;  // Donde se almacena el token en localStorage
     private expirationTimer: any;
 
     private refreshStarted = false;
@@ -55,8 +55,8 @@ export class KeycloakService {
         });
 
         this.currentUsuarioSubject = new BehaviorSubject<Autenticacion>(
-            typeof window !== 'undefined' && localStorage.getItem('currentUser')
-                ? JSON.parse(localStorage.getItem('currentUser')!)
+            typeof window !== 'undefined' && localStorage.getItem(`${environment.appStoragePrefix}currentUser`)
+                ? JSON.parse(localStorage.getItem(`${environment.appStoragePrefix}currentUser`)!)
                 : null
             );
         this.currentUsuario = this.currentUsuarioSubject.asObservable();
@@ -84,13 +84,15 @@ export class KeycloakService {
                 const informacionTotal = this.keycloak.tokenParsed;
                 // const permisos = informacionTotal?.authorization?.permissions;
 
-                //  console.log(informacionTotal);
+                console.log(informacionTotal);
+                
 
                  if (!informacionTotal || !informacionTotal.resource_access?.[environment.clientId]) {
                     this.accesoDenegadoSubject.next(true);
                     //this.router.navigate(['/auth/acceso-denegado']);
                     return false;
                 }
+                
 
                  // Roles por cliente
                 const KeycloakRoles = informacionTotal.resource_access?.[environment.clientId];
@@ -99,12 +101,14 @@ export class KeycloakService {
                     this.globalService.setCurrentRolIndex(0);// Cambiar indice por una funcion que de por defecto el rol con mas permisoss
                 }
 
+                
+
                 //console.log(informacionTotal)
                 const token = this.getKeycloakInstance().token;
                 const numeroDocumento  = this.keycloak.tokenParsed?.['numeroDocumento'];
                 const usuarioNombre = this.getUsername();
                 const nombresApellidos = this.keycloak.tokenParsed?.['name'];
-
+                
 
                 if(numeroDocumento){
                     this.globalService.setNumeroDocumento(numeroDocumento);
@@ -113,6 +117,8 @@ export class KeycloakService {
                 if(nombresApellidos){
                     this.globalService.setNombresApellidos(nombresApellidos);
                 }
+
+                //console.log("cesar")
 
                 const usuario: any = {
                     expiracion: "2",
@@ -125,9 +131,11 @@ export class KeycloakService {
                     // otros campos según tu definición
                 };
 
-                localStorage.setItem('token', token??'null');
-                localStorage.setItem('currentUser', JSON.stringify(usuario));
+                
 
+                localStorage.setItem(`${environment.appStoragePrefix}token`, token??'null');
+                localStorage.setItem(`${environment.appStoragePrefix}currentUser`, JSON.stringify(usuario));
+                
                 this.currentUsuarioSubject.next(usuario);
                 this.startTokenRefresh();
                 
@@ -159,9 +167,9 @@ export class KeycloakService {
     logout(): void {
         //this.keycloak.logout();
 
-        localStorage.removeItem('token');
+        localStorage.removeItem(`${environment.appStoragePrefix}token`);
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem(`${environment.appStoragePrefix}currentUser`);
         this.isAuthenticatedSubject.next(false);
         this.keycloak.logout({ redirectUri: typeof window !== 'undefined' ? window.location.origin : '' });
     }
@@ -206,10 +214,10 @@ export class KeycloakService {
             this.getKeycloakInstance().updateToken(60).then(refreshed => {
                 if (refreshed) {
                     const newToken = this.getKeycloakInstance().token ?? 'null';
-                    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+                    const user = JSON.parse(localStorage.getItem(`${environment.appStoragePrefix}currentUser`) || '{}');
                     user.token = newToken;
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    localStorage.setItem('token', newToken);
+                    localStorage.setItem(`${environment.appStoragePrefix}currentUser`, JSON.stringify(user));
+                    localStorage.setItem(`${environment.appStoragePrefix}token`, newToken);
                     console.log('🔄 Token renovado');
                 }
                 setTimeout(checkToken, 60000); // Vuelve a verificar en 60s

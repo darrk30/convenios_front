@@ -19,16 +19,16 @@ export class AuthGuard implements CanActivate {
         if (currentUser) {
             // logged in so return true
             const helper = new JwtHelperService();
-            const token = localStorage.getItem('token');
+            const token = localStorage.getItem(`${environment.appStoragePrefix}token`);
             if (helper.isTokenExpired(token)) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('currentUser');
+                localStorage.removeItem(`${environment.appStoragePrefix}token`);
+                localStorage.removeItem(`${environment.appStoragePrefix}currentUser`);
                 this.router.navigate(['/auth/sso']);
                 return false;
             }
         }
         // check if user data is in storage is logged in via API.
-        if (localStorage.getItem('currentUser')) {
+        if (localStorage.getItem(`${environment.appStoragePrefix}currentUser`)) {
             return true;
         }
         // not logged in so redirect to login page with the return url

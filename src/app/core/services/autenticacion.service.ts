@@ -17,7 +17,7 @@ export class AutenticacionService {
     urlBackend = `${environment.urlBackend}/api`;
     private currentUsuarioSubject: BehaviorSubject<Autenticacion>;
     public currentUsuario: Observable<Autenticacion>;
-    private tokenKey = 'token';  // Donde se almacena el token en localStorage
+    private tokenKey = `${environment.appStoragePrefix}token`;  // Donde se almacena el token en localStorage
     private expirationTimer: any;
 
     constructor(
@@ -26,7 +26,7 @@ export class AutenticacionService {
         private token: TokenStorageService,
         private router: Router
     ) {
-        this.currentUsuarioSubject = new BehaviorSubject<Autenticacion>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUsuarioSubject = new BehaviorSubject<Autenticacion>(JSON.parse(localStorage.getItem(`${environment.appStoragePrefix}currentUser`)));
         this.currentUsuario = this.currentUsuarioSubject.asObservable();
     }
 
@@ -44,7 +44,7 @@ export class AutenticacionService {
                     this.globalService.setIdeUsuario(usuario.ideUsuario);
 
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(usuario));
+                    localStorage.setItem(`${environment.appStoragePrefix}currentUser`, JSON.stringify(usuario));
                     this.currentUsuarioSubject.next(usuario);
                 }
                 return usuario;
@@ -52,9 +52,9 @@ export class AutenticacionService {
     }
 
     logout() {
-        localStorage.removeItem('token');
+        localStorage.removeItem(`${environment.appStoragePrefix}token`);
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem(`${environment.appStoragePrefix}currentUser`);
         this.currentUsuarioSubject.next(null);
         this.router.navigate(['auth/sso']);
     }

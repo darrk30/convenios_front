@@ -17,7 +17,7 @@ export class GlobalService {
 	currentRolIndex = 0;
 
 	constructor(){
-		const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('currentUser') ?? 'null'): null;
+		const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem(`${environment.appStoragePrefix}currentUser`) ?? 'null'): null;
 
 		this.setNombresApellidos(storedUser?.nombresApellidos);
 		this.setNumeroDocumento(storedUser?.numeroDocumento);
@@ -78,11 +78,11 @@ export class GlobalService {
 	}
 
 	setCurrentRolIndex(index: number){
-		const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('currentUser') ?? 'null'): null;
+		const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem(`${environment.appStoragePrefix}currentUser`) ?? 'null'): null;
 		if(storedUser){
 			storedUser.currentRolIndex = index
 		}
-		localStorage.setItem('currentUser', JSON.stringify(storedUser));
+		localStorage.setItem(`${environment.appStoragePrefix}currentUser`, JSON.stringify(storedUser));
 
 		this.currentRolIndex = index;
 	}
