@@ -65,11 +65,11 @@
                                 <tbody>
                                     @for(evaluacionAnual of evaluacionesAnualesFiltrados;track $index){
                                     <tr>
-                                        <td>{{ evaluacionAnual.convenio?.txtConvenio }}</td>
+                                        <td class="wrap-columna">{{ evaluacionAnual.convenio?.txtConvenio }}</td>
                                         <td>{{ evaluacionAnual.fecEvaluacion | date:'yyyy-MM-dd' }}</td>
-                                        <td>{{ evaluacionAnual.txtActividadProgramada}}</td>
-                                        <td>{{ evaluacionAnual.txtActividadEjecutada }}</td>
-                                        <td>{{ evaluacionAnual.txtPrincipalLogro }}</td>
+                                        <td class="wrap-columna">{{ evaluacionAnual.txtActividadProgramada}}</td>
+                                        <td class="wrap-columna">{{ evaluacionAnual.txtActividadEjecutada }}</td>
+                                        <td class="wrap-columna">{{ evaluacionAnual.txtPrincipalLogro }}</td>
                                         <td>
                                             <div class="dropdown" dropdown placement="bottom-right">
                                                 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" dropdownToggle aria-expanded="false">

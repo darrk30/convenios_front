@@ -91,7 +91,7 @@
                   <tbody>
                     @for(institucion of institucionesFiltrados;track $index){
                       <tr>
-                          <td>{{ institucion.txtInstitucion }}</td>
+                          <td class="wrap-columna">{{ institucion.txtInstitucion }}</td>
                           
                           <td>{{ institucion.pais?.txtPais?.length > 25 ? (institucion.pais?.txtPais | slice:0:25) + '...' : institucion.pais?.txtPais }}</td>
                           <td>{{ institucion.tipoInstitucion?.txtTipoInstitucion?.length > 25 ? (institucion.tipoInstitucion?.txtTipoInstitucion | slice:0:25) + '...' : institucion.tipoInstitucion?.txtTipoInstitucion }}</td>

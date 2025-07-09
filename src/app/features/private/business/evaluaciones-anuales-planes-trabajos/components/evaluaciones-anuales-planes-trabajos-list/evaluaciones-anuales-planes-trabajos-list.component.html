@@ -64,9 +64,9 @@
                                 <tbody>
                                     @for(evaluacionAnualPlanTrabajo of evaluacionesAnualesPlanesTrabajosFiltrados;track $index){
                                     <tr>
-                                        <td>{{ evaluacionAnualPlanTrabajo.convenio?.txtConvenio }}</td>
+                                        <td class="wrap-columna">{{ evaluacionAnualPlanTrabajo.convenio?.txtConvenio }}</td>
                                         <td>{{ evaluacionAnualPlanTrabajo.fecEvaluacion | date:'yyyy-MM-dd' }}</td>
-                                        <td>{{ evaluacionAnualPlanTrabajo.txtInformacionPlanTrabajo }}</td>
+                                        <td class="wrap-columna">{{ evaluacionAnualPlanTrabajo.txtInformacionPlanTrabajo }}</td>
                                         <td><button type="button" class="btn btn-danger" (click)="descargar(evaluacionAnualPlanTrabajo)"><i class="fas fa-download me-1"></i></button> </td>
                                         <td>
                                             <div class="dropdown" dropdown placement="bottom-right">
