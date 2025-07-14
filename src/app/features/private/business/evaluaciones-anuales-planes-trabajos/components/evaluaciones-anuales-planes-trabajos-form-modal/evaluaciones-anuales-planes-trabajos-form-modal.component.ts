@@ -31,7 +31,7 @@ export class EvaluacionesAnualesPlanesTrabajosFormModalComponent {
 	formData: FormGroup = this.formBuilder.group({
 		ideEvaluacionAnualPlanTrabajo: [],
 		ideConvenio: [,[Validators.required]],
-		fecEvaluacion: [,[Validators.required]],
+		fecEvaluacion: [toDateInputValue(new Date(Date.now())),[Validators.required]],
 		txtInformacionPlanTrabajo: [,[Validators.required]],
 		archivo: [null, [this.validateTamanioArchivo.bind(this), this.validateFormatoArchivo]],
 		uuid: []
@@ -53,12 +53,14 @@ export class EvaluacionesAnualesPlanesTrabajosFormModalComponent {
 			console.log('Convenios cargados:', this.listarConvenios());
 		});
 
-		const datosTransformados = {
-			...this.evaluacionAnualPlanTrabajo,
-			fecEvaluacion: toDateInputValue(this.evaluacionAnualPlanTrabajo?.fecEvaluacion),
-		};
+		if (this.evaluacionAnualPlanTrabajo){
+			const datosTransformados = {
+				...this.evaluacionAnualPlanTrabajo,
+				fecEvaluacion: toDateInputValue(this.evaluacionAnualPlanTrabajo?.fecEvaluacion),
+			};
 
-		this.formData.patchValue(datosTransformados);
+			this.formData.patchValue(datosTransformados);
+		}
 
 		if (this.flagAccion === 1) { // Modo CREAR
 			this.formData.get('archivo')?.addValidators(Validators.required);

@@ -35,7 +35,7 @@ export class EvaluacionesAnualesFormModalComponent {
 		txtPrincipalLogro: [,[Validators.required]],
 		txtLeccionAprendida: [,[Validators.required]],
 		bitExtension: [],
-		fecEvaluacion: [,[Validators.required]],
+		fecEvaluacion: [toDateInputValue(new Date(Date.now())), [Validators.required]],
 		txtActividadEspecifica: [,[Validators.required]],
 	});
 
@@ -47,12 +47,14 @@ export class EvaluacionesAnualesFormModalComponent {
 
 	ngOnInit(): void {
 		this.listarConvenios();
-		const datosTransformados = {
-			...this.evaluacionAnual,
-			fecEvaluacion: toDateInputValue(this.evaluacionAnual?.fecEvaluacion),
-		};
+		if (this.evaluacionAnual){
+			const datosTransformados = {
+				...this.evaluacionAnual,
+				fecEvaluacion: toDateInputValue(this.evaluacionAnual?.fecEvaluacion),
+			};
 
-		this.formData.patchValue(datosTransformados);
+			this.formData.patchValue(datosTransformados);
+		}
 	}
 
 	listarConvenios(){
