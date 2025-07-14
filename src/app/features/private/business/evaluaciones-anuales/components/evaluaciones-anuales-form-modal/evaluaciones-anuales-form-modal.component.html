@@ -24,15 +24,6 @@
     <div class="row mb-3">
         <div class="col-md-6">
             <div class="form-group">
-                <label class="control-label">Actividad Ejecutada:</label>
-                <textarea class="form-control" placeholder="Ingrese Actividad Ejecutada" autocomplete="off" formControlName="txtActividadEjecutada" [ngClass]="{'is-invalid': submitted && formData.get('txtActividadEjecutada').errors}"></textarea>
-                <div *ngIf="submitted && formData.get('txtActividadEjecutada').errors" class="invalid-feedback">
-                    <span *ngIf="formData.get('txtActividadEjecutada').errors.required">Actividad Ejecutada es requerido.</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
                 <label class="control-label">Actividad Programada:</label>
                 <textarea class="form-control" placeholder="Ingrese Actividad Programada" autocomplete="off" formControlName="txtActividadProgramada" [ngClass]="{'is-invalid': submitted && formData.get('txtActividadProgramada').errors}"></textarea>
                 <div *ngIf="submitted && formData.get('txtActividadProgramada').errors" class="invalid-feedback">
@@ -40,6 +31,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Actividad Ejecutada:</label>
+                <textarea class="form-control" placeholder="Ingrese Actividad Ejecutada" autocomplete="off" formControlName="txtActividadEjecutada" [ngClass]="{'is-invalid': submitted && formData.get('txtActividadEjecutada').errors}"></textarea>
+                <div *ngIf="submitted && formData.get('txtActividadEjecutada').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtActividadEjecutada').errors.required">Actividad Ejecutada es requerido.</span>
+                </div>
+            </div>
+        </div>        
     </div>
 
     <div class="row mb-3">
