@@ -2,7 +2,7 @@
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label">Oficina Proponente Ejecutor:</label>
+                <label class="control-label">Unidad de Organización Proponente / Ejecutora:</label>
                 <!-- <select class="form-control form-select" formControlName="ideOficina" [ngClass]="{'is-invalid': submitted && formData.get('ideOficina').errors}">
                     <option value=null>Seleccionar</option>
                     @for(oficina of oficinasStateService.items();track $index){
@@ -14,7 +14,7 @@
                     [items]="oficinasStateService.items()"
                     bindLabel="txtOficina"
                     bindValue="ideOficina"
-                    placeholder="Seleccionar Oficina Proponente Ejecutor"
+                    placeholder="Seleccionar Unidad de Organización Proponente / Ejecutora"
                     formControlName="ideOficina"
                     [ngClass]="{'is-invalid': submitted && formData.get('ideOficina')?.invalid}"
                     [searchable]="true"
@@ -23,7 +23,7 @@
 
 
                 <div *ngIf="submitted && formData.get('ideOficina').errors" class="invalid-feedback">
-                    <span *ngIf="formData.get('ideOficina').errors.required">Oficina Proponente Ejecutor es requerido.</span>
+                    <span *ngIf="formData.get('ideOficina').errors.required">Unidad de Organización Proponente / Ejecutora es requerido.</span>
                 </div>
             </div>
         </div>

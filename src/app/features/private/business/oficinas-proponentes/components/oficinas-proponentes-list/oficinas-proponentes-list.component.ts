@@ -100,7 +100,7 @@ export class OficinasProponentesListComponent implements OnInit {
 	}
 
 	crear(modal:any){
-		this.tituloModal = 'Registrar Oficina Proponente';
+		this.tituloModal = 'Registrar Unidad de Organización Proponente / Ejecutora';
 		let oficinaProponente:OficinaProponente = {
 			ideConvenio: this.ideConvenio
 		};
@@ -110,14 +110,14 @@ export class OficinasProponentesListComponent implements OnInit {
 	}
 
 	editar(modal:any,oficinaProponente:OficinaProponente){
-		this.tituloModal = 'Editar Oficina Proponente';
+		this.tituloModal = 'Editar Unidad de Organización Proponente / Ejecutora';
 		this.oficinaProponente = oficinaProponente;
 		this.flagAccion = 2;
 		this.modalRef = this.modalService.show(modal, { class: 'md modal-lg', backdrop: 'static', keyboard: false });
 	}
 
 	ver(modal:any,oficinaProponente:OficinaProponente){
-		this.tituloModal = 'Ver Oficina Proponente';
+		this.tituloModal = 'Ver Unidad de Organización Proponente / Ejecutora';
 		this.oficinaProponente = oficinaProponente;
 		this.flagAccion = 3;
 		this.modalRef = this.modalService.show(modal, { class: 'md modal-lg', backdrop: 'static', keyboard: false });
