@@ -144,7 +144,8 @@ export class ConveniosListComponent {
 		const searchKeywords = (this.formData.get('txtBusquedaGeneral')?.value || '').toLowerCase().trim().split(' ').filter((keyword) => keyword !== '');
 
 		this.conveniosFiltrados = this.originalConvenios.filter(c => {
-			const estadoSeleccionado = +this.formData.get('ideEstadoConvenio').value;
+			const estadosSeleccionados: number[] = this.formData.get('ideEstadoConvenio')?.value || [];
+			//const estadoSeleccionado = +this.formData.get('ideEstadoConvenio').value;
 
 			const aniosSeleccionados: number[] = this.formData.get('ideAnio')?.value || [];
 			//const anioSeleccionado = +this.formData.get('ideAnio').value;
@@ -167,8 +168,9 @@ export class ConveniosListComponent {
 			const textoCompleto = objectToText(c).toLowerCase();
 			const coincideBusquedaGeneral = searchKeywords.every((keyword) => textoCompleto.includes(keyword));
 
-			const coincideEstadoConvenio = !estadoSeleccionado || c.estadoConvenio?.ideEstadoConvenio === estadoSeleccionado;
-			
+			//const coincideEstadoConvenio = !estadoSeleccionado || c.estadoConvenio?.ideEstadoConvenio === estadoSeleccionado;
+			const coincideEstadoConvenio = estadosSeleccionados.length === 0 ||
+				c.tipoConvenio && estadosSeleccionados.includes(c.estadoConvenio.ideEstadoConvenio);
 			
 
 			const coincideModalidadConvenio = modalidadesSeleccionadas.length === 0 ||

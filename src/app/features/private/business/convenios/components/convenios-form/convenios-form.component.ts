@@ -24,13 +24,27 @@ import { saveAs } from "file-saver";
 import { OficinasProponentesListComponent } from '../../../oficinas-proponentes/components/oficinas-proponentes-list/oficinas-proponentes-list.component';
 import { fechasValidator } from '../../validators/fechas.validator';
 import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
+import { ExpedientesListComponent } from '../../../expendientes/components/expedientes-list/expedientes-list.component';
 
 @Component({
 	selector: 'app-convenios-form',
 	templateUrl: './convenios-form.component.html',
 	styleUrl: './convenios-form.component.css',
 	standalone:true,
-	imports:[CommonModule,PagetitleComponent,NgStepperModule,CdkStepperModule,FormsModule,ReactiveFormsModule,ArchivosListComponent,ResultadosListComponent,ContrapartesListComponent,ContrapartesCoordinadorListComponent, OficinasProponentesListComponent]
+	imports:[
+		CommonModule,
+		PagetitleComponent,
+		NgStepperModule,
+		CdkStepperModule,
+		FormsModule,
+		ReactiveFormsModule,
+		ArchivosListComponent,
+		ResultadosListComponent,
+		ContrapartesListComponent,
+		ContrapartesCoordinadorListComponent, 
+		OficinasProponentesListComponent,
+		ExpedientesListComponent
+	]
 })
 export class ConveniosFormComponent implements OnInit {
 	private route = inject(ActivatedRoute);
@@ -101,6 +115,30 @@ export class ConveniosFormComponent implements OnInit {
 
 		this.formData.get('fecFinalizacion')?.valueChanges.subscribe(() => {
 			this.actualizarDuracionConvenio();
+		});
+
+		this.formData.get('ideEstadoConvenio')?.valueChanges.subscribe((v) => {
+			const archivoCtrl = this.formData.get('archivo');
+			if (v == 4) {
+				// Limpia los valores
+				this.formData.get('fecSuscripcion')?.reset();
+				this.formData.get('fecInicio')?.reset();
+				this.formData.get('fecFinalizacion')?.reset();
+				this.formData.get('txtDuracionConvenio')?.reset();
+				this.formData.get('bitPlanTrabajo')?.reset();
+				this.formData.get('bitRenovacion')?.reset();
+				this.formData.get('archivo')?.reset();
+				this.formData.get('fecInicioRenovacion')?.reset();
+				this.formData.get('fecFinRenovacion')?.reset();
+
+				// ❌ Quitar required del archivo
+				archivoCtrl?.clearValidators();
+				archivoCtrl?.updateValueAndValidity();
+			} else {
+				// ✔️ Si NO es 4, vuelve a agregar el required (opcional)
+				archivoCtrl?.setValidators([Validators.required]);
+				archivoCtrl?.updateValueAndValidity();
+			}
 		});
 
 		effect(() => {

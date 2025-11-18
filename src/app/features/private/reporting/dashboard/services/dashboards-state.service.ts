@@ -14,6 +14,7 @@ export class DashboardsStateService {
     // Expuestos como computed
     readonly listaAnios = computed(() => this.dashboardData()?.listaAnios ?? []);
     readonly totalVigentes = computed(() => this.dashboardData()?.totalVigentes ?? 0);
+    readonly totalProyectos = computed(() => this.dashboardData()?.totalProyectos ?? 0);
     readonly totalConvenios = computed(() => this.dashboardData()?.totalConvenios ?? 0);
     readonly conveniosPorAnio = computed(() => this.dashboardData()?.conveniosPorAnio ?? []);
     private readonly anioSeleccionado = signal<number | null>(null);

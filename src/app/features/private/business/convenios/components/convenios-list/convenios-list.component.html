@@ -19,12 +19,25 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Estado Convenio</label>
-                                    <select class="form-control form-select" formControlName="ideEstadoConvenio">
+
+                                    <!-- <select class="form-control form-select" formControlName="ideEstadoConvenio">
                                         <option value>Seleccionar</option>
                                         @for(estadoConvenio of estadosConveniosStateService.itemsListado();track $index){
                                             <option value="{{estadoConvenio.ideEstadoConvenio}}">{{estadoConvenio.txtEstadoConvenio}}</option>
                                         }
-                                    </select>
+                                    </select> -->
+
+                                    <ng-select
+                                        formControlName="ideEstadoConvenio"
+                                        [items]="estadosConveniosStateService.itemsListado()"
+                                        bindLabel="txtEstadoConvenio"
+                                        bindValue="ideEstadoConvenio"
+                                        placeholder="Seleccionar"
+                                        [searchable]="true"
+                                        [clearable]="true"
+                                        [multiple]="true"    
+                                    >
+                                    </ng-select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -257,6 +270,7 @@
 
                                             <span class="badge badge-pill font-size-11"
                                                     [ngClass]="{
+                                                    'bg-info': convenio.estadoConvenio?.ideEstadoConvenio === 4, 
                                                     'bg-success': convenio.estadoConvenio?.ideEstadoConvenio === 3, 
                                                     'bg-warning': convenio.estadoConvenio?.ideEstadoConvenio === 2,   
                                                     'bg-danger':  convenio.estadoConvenio?.ideEstadoConvenio === 1   

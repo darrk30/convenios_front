@@ -1,18 +1,15 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
 	production: false,
 	appStoragePrefix: 'CONVENIOS_DEV_',
 	longNameSystem: 'CONVENIOS',
 	shortNameSystem: 'ITP - CONVENIOS - OGTI',
 	urlBackend: 'http://localhost:5278',
+	urlExpediente: 'https://winbe-dev.itp.gob.pe/wsSgd',
 	siteKeyCaptcha: "6Ldp8_spAAAAAP3ztV39YBUbWJ7MposM1RFLhVi2",
 	tamanioArchivoMB: 10,
-  	urlSso: "https://sso.itp.gob.pe/",
+  	urlSso: "https://sso-dev.itp.gob.pe:8080/",
 	realm: "itp",
-    clientId: "app-convenios-prod",
+    clientId: "app-convenios",
 };
 
 /*

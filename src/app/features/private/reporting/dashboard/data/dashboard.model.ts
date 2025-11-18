@@ -4,6 +4,7 @@ export interface DashboardResponse {
     listaAnios: number[];
     totalConvenios: number;
     totalVigentes: number;
+    totalProyectos: number;
     conveniosPorAnio: ConvenioPorAnio[];
 }
 

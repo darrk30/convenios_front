@@ -1,0 +1,142 @@
+<!-- <form (ngSubmit)="grabar()" [formGroup]="formData">
+    
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Número de Expediente:</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="Ingrese Número de Expediente" type="text" autocomplete="off" formControlName="txtExpediente" [ngClass]="{'is-invalid': submitted && formData.get('txtExpediente').errors}" maxlength="50" />
+                    <button class="btn btn-primary" type="button" (click)="buscarExpediente()" title="Buscar DNI">
+                        Buscar
+                    </button>
+                </div>
+                
+                <div *ngIf="submitted && formData.get('txtExpediente').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtExpediente').errors.required">Número de Expediente es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Tipo Documento:</label>
+                <input class="form-control" placeholder="Ingrese Tipo Documento" type="text" autocomplete="off" formControlName="txtTipoDocumento" [ngClass]="{'is-invalid': submitted && formData.get('txtTipoDocumento').errors}" maxlength="50" />
+                <div *ngIf="submitted && formData.get('txtTipoDocumento').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtTipoDocumento').errors.required">Tipo Documento es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Número Documento:</label>
+                <input class="form-control" placeholder="Ingrese Número Documento" type="text" autocomplete="off" formControlName="txtNumeroDocumento" [ngClass]="{'is-invalid': submitted && formData.get('txtNumeroDocumento').errors}" maxlength="100" />
+                <div *ngIf="submitted && formData.get('txtNumeroDocumento').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtNumeroDocumento').errors.required">Número Documento es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Fecha de Emisión:</label>
+                <input class="form-control" placeholder="Ingrese Fecha de Emisión" type="text" autocomplete="off" formControlName="fecEmision" [ngClass]="{'is-invalid': submitted && formData.get('fecEmision').errors}" maxlength="100" />
+                <div *ngIf="submitted && formData.get('fecEmision').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('fecEmision').errors.required">Fecha de Emisión es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Asunto:</label>
+                <textarea class="form-control" placeholder="Ingrese Asunto" formControlName="txtAsunto" [ngClass]="{'is-invalid': submitted && formData.get('txtAsunto').errors}"  ></textarea>
+                <div *ngIf="submitted && formData.get('txtAsunto').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtAsunto').errors.required">Asunto es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form> -->
+
+
+<form (ngSubmit)="grabar()" [formGroup]="formData">
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Número de Expediente:</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="Ingrese Número de Expediente" type="text" autocomplete="off"
+                        formControlName="txtExpediente"
+                        [ngClass]="{'is-invalid': submitted && formData.get('txtExpediente').errors}" maxlength="50" />
+                    <button class="btn btn-primary" type="button" (click)="buscarExpediente()" title="Buscar Expediente">
+                        Buscar
+                    </button>
+                </div>
+
+                <div *ngIf="submitted && formData.get('txtExpediente').errors" class="invalid-feedback">
+                    <span *ngIf="formData.get('txtExpediente').errors.required">Número de Expediente es requerido.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3" *ngIf="expedientes.length > 0">
+        <div class="col-md-12">
+            <label class="control-label">Documentos Asociados:</label>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tipo Documento</th>
+                            <th>Número Documento</th>
+                            <th>Fecha de Emisión</th>
+                            <th>Asunto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expediente of expedientes">
+                            <td>{{ expediente.tipoDocumento }}</td>
+                            <td>{{ expediente.numeroDocumento }}</td>
+                            <td>{{ expediente.fechaEmision}}</td> 
+                            <td>{{ expediente.asunto }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3" *ngIf="submitted && expedientes.length === 0 && formData.get('txtExpediente').valid">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                No se encontraron documentos para el número de expediente ingresado.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="modal-footer form-group">
+            <div class="">
+                <button type="submit" class="btn btn-success">Grabar</button>
+            </div>
+        </div>
+    </div>
+</form>

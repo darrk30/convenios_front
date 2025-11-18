@@ -1,0 +1,59 @@
+
+<div class="card ">
+    <div class="card-header">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="float-start">
+                    <h3>Lista de Expedientes</h3> 
+                </div>
+                <div class="float-end" *ngIf="flagAction != 3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="crear(modalExpediente)">Agregar</button>
+                </div> 
+            </div><!-- end col-->
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 15%;">Expediente</th>
+                            <th scope="col" style="width: 10%;">Tipo Documento</th>
+                            <th scope="col" style="width: 10%;">Número de Documento</th>
+                            <th scope="col" style="width: 10%;">Fecha de Emisión</th>
+                            <th scope="col" style="width: 35%;">Asunto</th>
+                            <th scope="col" style="width: 15%;">Descargar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(expediente of expedientesStateService.items();track $index){
+                        <tr>
+                            <td class="wrap-columna-convenio">{{expediente.txtExpediente}}</td>
+                            <td>{{expediente.txtTipoDocumento}}</td>
+                            <td>{{expediente.txtNumeroDocumento}}</td>
+                            <td>{{expediente.fecEmision|date:'dd-MM-YYYY'}}</td>
+                            <td class="wrap-columna-convenio">{{expediente.txtAsunto}}</td>
+                            <td>
+
+                                <button type="button" class="btn btn-danger" (click)="documentoPdf(expediente.txtTipoDocumento,expediente.txtNumeroDocumento)">
+                                    <i class="fa fa-file-pdf"></i> Descargar PDF
+                                </button>
+                            </td>
+                        </tr>}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalExpediente role="document" let-modal>
+	<div class="modal-header">
+        <h5 class="modal-title mt-0">{{tituloModal}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"></button>
+	</div>
+	<div class="modal-body">
+		<app-expedientes-form-modal [modalRef]="modalRef" [expediente]="expediente" [flagAccion]="flagAccion" (onSave)="listar()"></app-expedientes-form-modal>
+	</div>
+</ng-template>

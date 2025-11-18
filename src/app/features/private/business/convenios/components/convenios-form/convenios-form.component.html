@@ -50,7 +50,7 @@
                                                     }
                                                 </select>
                                                 <div *ngIf="submitted && formData.get('ideTipoConvenio').errors" class="invalid-feedback">
-                                                    <span *ngIf="formData.get('ideTipoConvenio  ').errors.required">Tipo de Convenio es requerido.</span>
+                                                    <span *ngIf="formData.get('ideTipoConvenio').errors.required">Tipo de Convenio es requerido.</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                    <div class="row mb-3" *ngIf="this.formData.get('ideEstadoConvenio').value != 4">
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Fecha Suscripción:</label>
@@ -119,7 +119,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" *ngIf="this.formData.get('ideEstadoConvenio').value != 4">
                                         <!-- Mensajes de error del grupo (validaciones cruzadas) -->
                                         <div class="col-md-12" *ngIf="submitted && formData.errors" style="margin-top: -10px;">
                                             <div class="text-danger" *ngIf="formData.errors.fechaInicioAntesSuscripcion">
@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="row mb-3">
+                                    <div class="row mb-3" *ngIf="this.formData.get('ideEstadoConvenio').value != 4">
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Requiere Plan:</label>
@@ -177,7 +177,7 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="row mb-3">
+                                    <div class="row mb-3" *ngIf="this.formData.get('ideEstadoConvenio').value != 4">
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label">Fecha de Inicio Renovación:</label>
@@ -304,6 +304,15 @@
                                 </ng-template>
                                 <section>
                                     <app-archivos-list [flagAction]="flagAction" [ideConvenio]="this.formData.get('ideConvenio').value"></app-archivos-list>
+                                </section>
+                            </cdk-step>
+                            <cdk-step [optional]="true" *ngIf="this.formData.get('ideConvenio').value && this.formData.get('ideEstadoConvenio').value==4">
+                                <ng-template cdkStepLabel>
+                                    <span class="number bx bxs-cloud-upload fs-2"></span>
+                                    <span>EN GESTIÓN</span>
+                                </ng-template>
+                                <section>
+                                    <app-expedientes-list [flagAction]="flagAction" [ideConvenio]="this.formData.get('ideConvenio').value"></app-expedientes-list>
                                 </section>
                             </cdk-step>
                         </ng-stepper>
