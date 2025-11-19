@@ -36,6 +36,12 @@
                                 <button class="btn btn-danger" (click)="login()" [disabled]="!isReady">Iniciar Sesión</button>
                             </div>
 						</div>
+						<div class="p-2 mt-3 text-center">
+								<a class="link-info" href="/assets/documents/manual-usuario.pdf">
+									<i class="bx bxs-file-pdf fs-1 align-middle me-1"></i>
+									<span class="fs-5"> Manual de Usuario </span>
+								</a>
+						</div>						
 						<div *ngIf="showAccessDenied" class="alert alert-danger mt-2" role="alert">
 							<strong>Acceso denegado:</strong> Su usuario no tiene permisos para ingresar a esta aplicación.
 						</div>
