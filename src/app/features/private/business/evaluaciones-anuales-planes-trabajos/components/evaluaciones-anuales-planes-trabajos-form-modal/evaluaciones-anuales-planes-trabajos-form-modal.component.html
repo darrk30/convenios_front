@@ -13,6 +13,9 @@
                     [ngClass]="{'is-invalid': submitted && formData.get('ideConvenio')?.invalid}"
                     [searchable]="true"
                     [clearable]="false">
+                    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        <span class="wrap-columna"> {{item.txtConvenio}} </span>
+                    </ng-template>
                 </ng-select>
 
                 <div *ngIf="submitted && formData.get('ideConvenio').errors" class="invalid-feedback">

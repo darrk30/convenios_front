@@ -19,6 +19,9 @@
                                         placeholder="Seleccionar convenio"
                                         [searchable]="true"
                                         [clearable]="true">
+                                        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                            <span class="wrap-columna"> {{item.txtConvenio}} </span>
+                                        </ng-template>                                        
                                     </ng-select>
                                 </div>
                             </div>
