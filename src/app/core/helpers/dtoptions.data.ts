@@ -6,6 +6,7 @@ const dtOptionsData = {
     lengthChange: true,
     searching: false,
     ordering: true,
+    order: [],
     info: true,
     autoWidth: true,
     pageLength: 10,
