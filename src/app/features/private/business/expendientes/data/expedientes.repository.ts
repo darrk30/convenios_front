@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Expediente, ExpedienteRpta } from './expediente.model';
+import { Expediente, ExpedienteRpta, DatosGeneralesExpedienteRpta } from './expediente.model';
 
 @Injectable({ providedIn: 'root' })
 export class ExpedientesRepository {
@@ -14,11 +14,13 @@ export class ExpedientesRepository {
 	) {}
 
 	getByExpediente(expediente: string): Observable<ExpedienteRpta> {
-		return this.http.get<ExpedienteRpta>(`${this.apiUrlExpediente}/documento-remitos/listar-documentos-por-expediente/${expediente}`);
+		return this.http.get<ExpedienteRpta>(`${this.apiUrlExpediente}/documento-remitos/listar-documentos-trazabilidad-expediente/${expediente}`);
 	}
 
 	getDescargarPdf(ideTipoDocumento: string, numeroDocumento: string): Observable<Blob> {
-		return this.http.get(`${this.apiUrlExpediente}/documento-remitos/obtener-archivo-doc?ideTipoDoc=${ideTipoDocumento}&nroDoc=${numeroDocumento}`, {
+		const tipoDocumentoEncoded = encodeURIComponent(ideTipoDocumento);
+		const numeroDocumentoEncoded = encodeURIComponent(numeroDocumento);
+		return this.http.get(`${this.apiUrlExpediente}/documento-remitos/obtener-archivo-documento-con-descripcion-documento?tipoDocumento=${tipoDocumentoEncoded}&nroDoc=${numeroDocumentoEncoded}`, {
 			responseType: 'blob'
 		});
 	}

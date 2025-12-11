@@ -100,8 +100,9 @@ export class ExpedientesFormModalComponent {
 				let formattedDate: string | null = null;
             
 				if (doc.fechaEmision) {
-					const parts = doc.fechaEmision.split('/'); // parts = ["04", "02", "2025"]
-					
+					const parts = doc.fechaEmision.substring(0, 10).split('-'); // parts = ["04", "02", "2025"]
+					[parts[0], parts[2]] = [parts[2], parts[0]];
+
 					// Asegurar que haya 3 partes y que todas sean números válidos
 					if (parts.length === 3 && !isNaN(parseInt(parts[0])) && !isNaN(parseInt(parts[1])) && !isNaN(parseInt(parts[2]))) {
 						
@@ -128,8 +129,9 @@ export class ExpedientesFormModalComponent {
                     ...baseData,
                     txtTipoDocumento: doc.tipoDocumento,
                     txtNumeroDocumento: doc.numeroDocumento,
-                    fecEmision: formattedDate,
-                    txtAsunto: doc.asunto,
+                    fecEmision: doc.fechaEmision,
+                    txtAsunto: doc.asuntoDocumento,
+                    txtdependencia: doc.dependencia
                     // Si el documento tiene su propio ID para actualización, inclúyelo:
                     // ideDocumento: doc.ideDocumento 
                 };
