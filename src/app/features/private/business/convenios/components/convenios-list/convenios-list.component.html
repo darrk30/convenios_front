@@ -215,6 +215,7 @@
                                         <th scope="col" style="width: 20% !important;">Convenio</th>
                                         <th scope="col" style="width: 15% !important;">Unidad de Organización Proponente / Ejecutora</th>
                                         <th scope="col" style="width: 20% !important;">Tipo de Convenio</th>
+                                        <th scope="col" style="width: 8% !important;">Tiempo de Trámite Transcurrido (en días)</th>
                                         <th scope="col" style="width: 10% !important;">Fecha Inicio</th>
                                         <th scope="col" style="width: 10% !important;">Fecha Fin</th>
                                         <th scope="col" style="width: 5% !important;">Convenio</th>
@@ -236,6 +237,7 @@
                                             }}
                                         </td>
                                         <td>{{ convenio.tipoConvenio?.txtTipoConvenio?.length > 25 ? (convenio.tipoConvenio?.txtTipoConvenio | slice:0:25) + '...' : convenio.tipoConvenio?.txtTipoConvenio }}</td>
+                                        <td>{{ convenio.diasTranscurridos }}</td>
                                         <td>{{ convenio.fecInicio | date:'yyyy-MM-dd'}}</td>
                                         <td>{{ convenio.fecFinalizacion | date:'yyyy-MM-dd' }}</td>
                                         <td>

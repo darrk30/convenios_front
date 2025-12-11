@@ -34,6 +34,7 @@ export interface Convenio {
     organoEjecutor:any;
     oficinasProponentes:any;
     tipoConvenio:any;
+    diasTranscurridos: string;
 }
 
 export interface ConvenioRpta {
