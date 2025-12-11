@@ -17,6 +17,10 @@ export class ExpedientesRepository {
 		return this.http.get<ExpedienteRpta>(`${this.apiUrlExpediente}/documento-remitos/listar-documentos-trazabilidad-expediente/${expediente}`);
 	}
 
+	getDatosGeneralesByConvenio(ideConvenio: number): Observable<DatosGeneralesExpedienteRpta> {
+		return this.http.get<DatosGeneralesExpedienteRpta>(`${this.apiUrl}/get-datos-generales-by-convenio/${ideConvenio}`);
+	}
+
 	getDescargarPdf(ideTipoDocumento: string, numeroDocumento: string): Observable<Blob> {
 		const tipoDocumentoEncoded = encodeURIComponent(ideTipoDocumento);
 		const numeroDocumentoEncoded = encodeURIComponent(numeroDocumento);

@@ -25,6 +25,7 @@ import { OficinasProponentesListComponent } from '../../../oficinas-proponentes/
 import { fechasValidator } from '../../validators/fechas.validator';
 import { TiposConveniosStateService } from 'src/app/features/private/maintenance/tipos-convenios/services/tipos-convenios-state.service';
 import { ExpedientesListComponent } from '../../../expendientes/components/expedientes-list/expedientes-list.component';
+import { ExpedientesStateService } from '../../../expendientes/services/expedientes-state.service';
 
 @Component({
 	selector: 'app-convenios-form',
@@ -58,6 +59,7 @@ export class ConveniosFormComponent implements OnInit {
 	public personasStateService = inject(PersonasStateService);
 	public estadosConveniosStateService = inject(EstadosConveniosStateService);
 	public convenioStore = inject(ConvenioStore);
+	public expedientesStateService = inject(ExpedientesStateService);
 
 	breadCrumbItems: Array<{}>;
 
@@ -170,7 +172,8 @@ export class ConveniosFormComponent implements OnInit {
 		//this.listarOficinas();
 		this.listarEstadosConvenios();
 		this.getConvenio();
-
+		this.getDatosGeneralesExpedientes();
+		
 		if (this.flagAction == 1) { // Modo CREAR
 			this.formData.get('archivo')?.addValidators(Validators.required);
 			this.idePagina = 1;
@@ -180,6 +183,10 @@ export class ConveniosFormComponent implements OnInit {
 			this.formData.disable();
 			this.idePagina = 3;
 		}
+	}
+
+	getDatosGeneralesExpedientes(){
+		this.expedientesStateService.loadDatosGeneralesByConvenio(this.ideConvenio);
 	}
 
 	listarTiposConvenios(){

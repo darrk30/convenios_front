@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { PaginationService } from 'src/app/core/services/pagination.service';
-import { Expediente, ExpedienteRpta } from '../data/expediente.model';
+import { DatosGeneralesExpediente, DatosGeneralesExpedienteRpta, Expediente, ExpedienteRpta } from '../data/expediente.model';
 import { ExpedientesRepository } from '../data/expedientes.repository';
 import { Observable, Subject } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { Observable, Subject } from 'rxjs';
 export class ExpedientesStateService {
     items = signal<Expediente[]>([]);
     item = signal<Expediente | null>(null);
+    datosGenerales = signal<DatosGeneralesExpediente | null> (null);
 
     constructor(
         private expedientesRepository: ExpedientesRepository,
@@ -23,6 +24,26 @@ export class ExpedientesStateService {
     clearState() {
         this.item.set(null);
         this.items.set([]);
+        this.datosGenerales.set(null);
+    }
+
+    loadDatosGeneralesByConvenio(ideConvenio:number): Observable<void> {
+        const subject = new Subject<void>();
+        this.spinner.show();
+        this.expedientesRepository.getDatosGeneralesByConvenio(ideConvenio).subscribe({
+            next: (data:DatosGeneralesExpedienteRpta) => {
+                this.datosGenerales.set(data.dato);
+                this.spinner.hide();
+                subject.next();
+                subject.complete();
+            },
+            error: () => {
+                this.spinner.hide();
+                subject.error('Error');
+            },
+        });
+
+        return subject.asObservable();
     }
 
     loadItemsByConvenio(ideConvenio:number): Observable<void> {

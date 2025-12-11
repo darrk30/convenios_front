@@ -47,6 +47,7 @@ export class ExpedientesListComponent {
 
 	listar(){
 		this.expedientesStateService.loadItemsByConvenio(this.ideConvenio).subscribe(() => {
+			this.expedientesStateService.loadDatosGeneralesByConvenio(this.ideConvenio);
 			this.rerender();
 		});
 	}

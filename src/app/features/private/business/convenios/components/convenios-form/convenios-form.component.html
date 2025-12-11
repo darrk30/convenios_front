@@ -311,7 +311,117 @@
                                     <span class="number bx bxs-cloud-upload fs-2"></span>
                                     <span>EN GESTIÓN</span>
                                 </ng-template>
-                                <section>
+                                <section>         
+                                    @if(this.expedientesStateService.items().length !== 0){
+                                        <div class="card ">
+                                            <div class="card-header">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-12">
+                                                        <div class="float-start">
+                                                            <h3>Datos Generales de Expedientes</h3> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card-title">
+                                                    <h4> Gestión Inicial </h4> 
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">N° Expediente:</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.nroExpedienteInicial" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>                                                  
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">
+                                                                Tipo de Documento:
+                                                            </label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.tipoDocumentoInicial" type="text" autocomplete="off" disabled />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">
+                                                                N° de Documento:
+                                                            </label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.nroDocumentoInicial" type="text" autocomplete="off" disabled />
+                                                        </div>
+                                                    </div>                                      
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Órgano o Área:</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.areaInicial" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>                                                
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Fecha de Emisión:</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.fechaEmisionInicial" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Tiempo transcurrido (días desde emisión):</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.tiempoTranscurridoInicial" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>                                                
+                                                </div>
+
+                                                <div class="card-title mt-5">
+                                                    <h4> Situación Actual de Gestión </h4> 
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">N° Expediente:</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.nroExpedienteActual" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>                                                  
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">
+                                                                Tipo de Documento:
+                                                            </label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.tipoDocumentoActual" type="text" autocomplete="off" disabled />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">
+                                                                N° de Documento:
+                                                            </label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.nroDocumentoActual" type="text" autocomplete="off" disabled />
+                                                        </div>
+                                                    </div>                                      
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Órgano o Área:</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.areaActual" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>                                                
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Fecha de Emisión:</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.fechaEmisionActual" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Tiempo transcurrido (días desde emisión):</label>
+                                                            <input class="form-control" [placeholder]="this.expedientesStateService.datosGenerales()?.tiempoTranscurridoActual" type="text" autocomplete="off" disabled /> 
+                                                        </div>
+                                                    </div>                                                
+                                                </div>                            
+                                            </div>
+                                        </div>
+                                    }                           
                                     <app-expedientes-list [flagAction]="flagAction" [ideConvenio]="this.formData.get('ideConvenio').value"></app-expedientes-list>
                                 </section>
                             </cdk-step>
