@@ -18,6 +18,10 @@ export class ConvenioStore {
         return this.conveniosRepository.descargarExcelResumen(filterData);
     }
 
+    descargarExcelResumenEnGestion(filterData: any): Observable<Blob> {
+        return this.conveniosRepository.descargarExcelResumenEnGestion(filterData);
+    }
+
     descargarPdfResumen(filterData: any): Observable<Blob> {
         return this.conveniosRepository.descargarPdfResumen(filterData);
     }

@@ -317,6 +317,50 @@ export class ConveniosListComponent {
 		});
 	}
 
+	descargarExcelResumenEnGestion(){
+		const cleanFormValue = this.obtenerFormValueLimpio();
+
+		this.convenioStore.descargarExcelResumenEnGestion(cleanFormValue).subscribe({
+			next: (response: Blob) => {
+				const contentType = response.type;
+
+				// Determinar la extensión del archivo basada en el tipo MIME
+				let extension = '';
+				switch (contentType) {
+					case 'application/pdf':
+					extension = '.pdf';
+					break;
+					case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+					extension = '.xlsx';
+					break;
+					case 'application/vnd.ms-excel':
+					extension = '.xls';
+					break;
+					case 'text/plain':
+					extension = '.txt';
+					break;
+					case 'application/zip':
+					extension = '.zip';
+					break;
+					default:
+					extension = ''; // Extensión por defecto si no se reconoce el tipo MIME
+				}
+
+				// Crear un archivo Blob a partir de la respuesta
+				const blob = new Blob([response], { type: contentType });
+
+				// Generar un nombre de archivo dinámico
+				const fileName = `CONVENIOS_RESUMEN_EN_GESTION.${extension}`;
+
+				// Usar file-saver para descargar el archivo
+				saveAs(blob, fileName);
+			},
+			error: (error) => {
+				console.error('Error al descargar el PDF', error);
+			}
+		});
+	}
+
 	descargarConvenio(uuid:string) {
 		this.convenioStore.descargar(uuid).subscribe({
 			next: (blob) => {

@@ -70,6 +70,11 @@ export class ConveniosRepository {
 		return this.http.get(`${this.apiUrl}/export-to-excel-resumen?${urlParams}`, { responseType: 'blob' });
 	}
 
+	descargarExcelResumenEnGestion(filterData: any): Observable<Blob> {
+		const urlParams = this.convertToURLParams(filterData);
+		return this.http.get(`${this.apiUrl}/export-en-gestion-to-excel-resumen?${urlParams}`, { responseType: 'blob' });
+	}
+
 	descargarPdfResumen(filterData: any): Observable<Blob> {
 		const urlParams = this.convertToURLParams(filterData);
 		return this.http.get(`${this.apiUrl}/export-to-pdf-resumen?${urlParams}`, { responseType: 'blob' });
